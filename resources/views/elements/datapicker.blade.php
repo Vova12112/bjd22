@@ -1,10 +1,32 @@
-<input type="text" id="{{ $datapickerId }}">
-
+<input type="text" id="{{ $datapickerId }}" value="{{ $selectedDay ?? '' }}">
 <script>
-	$(function () {
-		$("#{{ $datapickerId }}").datepicker();
+	$(document).ready(function ()	{
+		const $dataPicker = $("#{{ $datapickerId }}"),
+			dataPickerParams = {
+				dateFormat: "dd.mm.yy"
+			};
+
+		@if( isset($minDay))
+			dataPickerParams["minDate"] = "{{ $minDay }}";
+		@endif
+
+
+		$(function () {
+			$dataPicker.datepicker(dataPickerParams);
+		});
+
+		$dataPicker.change(function () {
+			console.log($dataPicker.val());
+		});
 	});
 </script>
 
+<script>
+	// $dataPicker.datepicker({
+	// 	dateFormat: "yy-mm-dd",
+	// 	maxDate   : '+1m +10d',
+	// 	minDate   : -10
+	// });
 
-{{ $test ?? 'test empty' }}
+</script>
+{{--{{ $test ?? 'test empty' }}--}}

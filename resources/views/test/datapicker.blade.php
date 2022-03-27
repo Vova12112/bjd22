@@ -27,7 +27,16 @@
 			[
 				'datapickerId' => 'datapicker',
 				'selectedDay' => '12.02.2022',
-				'minDay' => '05.02.2022',
+				'minDay' => '-1',
+				'maxDay' => '30.04.2022',
+			]
+		)
+		@include(
+			'elements.datapicker',
+			[
+				'datapickerId' => 'datapicker1',
+				'selectedDay' => \Carbon\Carbon::now('UTC')->format('d.m.Y'),
+				'minDay' => '-1',
 				'maxDay' => '30.04.2022',
 			]
 		)
