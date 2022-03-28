@@ -1,52 +1,79 @@
-input[type=text],
-input[type=email],
-input[type=password] {
+.input-block {
 	position: relative;
-	width: 285px;
-	height: 26px;
-	background: #FFFFFF;
-	border: 1px solid #555555;
-	box-sizing: border-box;
+	height:   32px;
+}
+.input-block input.default {
+	position:      absolute;
+	top:           3px;
+	left:          0;
+	width:         100%;
+	height:        26px;
+	background:    #FFFFFF;
+	padding:       0 10px;
+	border:        1px solid #555555;
+	box-sizing:    border-box;
 	border-radius: 5px;
-	
+	outline:       none;
 }
-
-span {
+.input-block input.default:focus {
+	border: 1px solid #2374A1;
+}
+.input-block input.default + label {
 	position: absolute;
-	z-index: 1;
-	background-color:#fff;
-	top: 13px;
-	left: 15px;
-	color:#2374A1;
-	padding:0 5px;
+	z-index:  1;
+	top:      7px;
+	left:     10px;
+	color:    #777777;
+	padding:  0 5px;
 }
-.textfield:focus {
-	border:1px solid #2374A1;
+.input-block input.default:focus + label {
+	color: #2374A1;
 }
-input:focus ~ span,
-input:not(:focus):valid ~ span {
-	top:-8px;
+.input-block input.default:focus + label,
+.input-block input.default:not(:placeholder-shown) + label {
+	top:       -5px;
+	left:      7px;
+	font-size: 12px;
 }
-.textfield, span {
-	transition: ease-in-out 0.2s ;
-	-webkit-transition: ease-in-out 0.2s ;
-	-moz-transition: ease-in-out 0.2s ;
-	-o-transition: ease-in-out 0.2s ;
+.input-block input.default:focus + label:before,
+.input-block input.default:not(:placeholder-shown) + label:before {
+	content:          " ";
+	z-index:          -1;
+	top:              8px;
+	left:             0;
+	position:         absolute;
+	width:            100%;
+	height:           2px;
+	background-color: #FFFFFF;
 }
-
+.input-block input.default, label {
+	transition:         ease-in-out 0.2s;
+	-webkit-transition: ease-in-out 0.2s;
+	-moz-transition:    ease-in-out 0.2s;
+	-o-transition:      ease-in-out 0.2s;
+}
+.panel {
+	box-shadow:    inset 4px 4px 10px rgba(0, 0, 0, 0.25);
+	border-radius: 10px;
+	box-sizing:    border-box;
+}
+.panel.action {
+	background: #FCFEFF;
+}
+.panel.content {
+	background: #F8FCFF;
+}
 .btn {
-	position: absolute;
-	width: 100px;
-	height: 26px;
-	
-	
-	background: #FFFFFF;
-	border: 1px solid #555555;
-	box-sizing: border-box;
+	position:      absolute;
+	width:         100px;
+	height:        26px;
+	background:    #FFFFFF;
+	border:        1px solid #555555;
+	box-sizing:    border-box;
 	border-radius: 5px;
 }
 .btn:hover {
 	cursor: pointer;
-	color: #22539C;
+	color:  #22539C;
 	border: 1px solid #2374A1;
 }

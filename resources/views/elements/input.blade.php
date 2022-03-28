@@ -1,5 +1,5 @@
-<label>
-	<input type="text" class="textfield" required id="{{ $inputId }}">
-	<span class="placeholder">Введіть значення</span>
-</label>
+<div class="input-block">
+	<input type="text" class="default" placeholder=" " required id="{{ $inputId }}" value="{{ $value ?? '' }}">
+	<label for="{{ $inputId }}">{{ $label ?? '' }}</label>
+</div>
 

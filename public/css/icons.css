@@ -1,0 +1,12 @@
+.icon {
+	display:               inline-block;
+	background-position-y: 0;
+	width:                 30px;
+	height:                30px;
+	background:            url('../img/icons-30.svg') no-repeat;
+}
+.icon.arrow {background-position-x: 0;}
+.icon.link:hover {
+	background-position-y: -30px;
+	cursor:                pointer;
+}

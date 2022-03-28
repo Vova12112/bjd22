@@ -1,27 +1,27 @@
-<input type="text" id="{{ $datapickerId }}" value="{{ $selectedDay ?? '' }}">
-<script>
-	$(document).ready(function () {
-		const $dataPicker = $("#{{ $datapickerId }}"),
-			dataPickerParams = {
-				dateFormat: "dd.mm.yy"
-			};
+<div class="input-block">
+	<input type="text" id="{{ $datapickerId }}" value="{{ $selectedDay ?? '' }}" class="default">
+	<script>
+		$(document).ready(function () {
+			const $dataPicker = $("#{{ $datapickerId }}"),
+				dataPickerParams = {
+					dateFormat: "dd.mm.yy"
+				};
 
-		@if( isset($minDay))
-			dataPickerParams["minDate"] = "{{ $minDay }}";
-		@endif
+			@if( isset($minDay))
+				dataPickerParams["minDate"] = "{{ $minDay }}";
+			@endif
 
-		@if( isset($maxDay))
-			dataPickerParams["maxDate"] = "{{ $maxDay }}";
-		@endif
+					@if( isset($maxDay))
+				dataPickerParams["maxDate"] = "{{ $maxDay }}";
+			@endif
 
-		$(function () {
-			$dataPicker.datepicker(dataPickerParams);
+			$(function () {
+				$dataPicker.datepicker(dataPickerParams);
+			});
+
+			$dataPicker.change(function () {
+				console.log($dataPicker.val());
+			});
 		});
-
-		$dataPicker.change(function () {
-			console.log($dataPicker.val());
-		});
-	});
-</script>
-
-{{--{{ $test ?? 'test empty' }}--}}
+	</script>
+</div>
