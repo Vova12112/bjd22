@@ -1,0 +1,52 @@
+input[type=text],
+input[type=email],
+input[type=password] {
+	position: relative;
+	width: 285px;
+	height: 26px;
+	background: #FFFFFF;
+	border: 1px solid #555555;
+	box-sizing: border-box;
+	border-radius: 5px;
+	
+}
+
+span {
+	position: absolute;
+	z-index: 1;
+	background-color:#fff;
+	top: 13px;
+	left: 15px;
+	color:#2374A1;
+	padding:0 5px;
+}
+.textfield:focus {
+	border:1px solid #2374A1;
+}
+input:focus ~ span,
+input:not(:focus):valid ~ span {
+	top:-8px;
+}
+.textfield, span {
+	transition: ease-in-out 0.2s ;
+	-webkit-transition: ease-in-out 0.2s ;
+	-moz-transition: ease-in-out 0.2s ;
+	-o-transition: ease-in-out 0.2s ;
+}
+
+.btn {
+	position: absolute;
+	width: 100px;
+	height: 26px;
+	
+	
+	background: #FFFFFF;
+	border: 1px solid #555555;
+	box-sizing: border-box;
+	border-radius: 5px;
+}
+.btn:hover {
+	cursor: pointer;
+	color: #22539C;
+	border: 1px solid #2374A1;
+}
