@@ -14,6 +14,7 @@
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script src="js/datapickerUaLocal.js"></script>
 	<script src="js/menu.js"></script>
+	<script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
 </head>
 @yield( 'body' )
 </html>

@@ -77,3 +77,104 @@
 	color:  #22539C;
 	border: 1px solid #2374A1;
 }
+
+
+/**------------------ MAIN & ADDITIONAL POPUPS --------------------**/
+#additional-popup,
+#main-popup {
+	min-height:       768px;
+	min-width:        1024px;
+	width:            100%;
+	height:           100%;
+	top:              0;
+	left:             0;
+	display:          none;
+	position:         absolute;
+	background-color: #2d3748;
+	z-index:          900;
+	overflow:         auto;
+	text-align:       center;
+}
+#additional-popup { z-index: 920; }
+#additional-popup .popup-wrapper,
+#main-popup .popup-wrapper {
+	min-height: 130px;
+	padding:    0;
+	margin:     150px auto;
+	z-index:    910;
+	background: #6b7280;
+	max-width:  900px;
+}
+#additional-popup .popup-wrapper {
+	margin:     250px auto;
+	max-width:  600px;
+	min-height: 100px;
+}
+#additional-popup .popup-close-button,
+#main-popup .popup-close-button { height: 36px; }
+#additional-popup .popup-close-button span,
+#main-popup .popup-close-button span {
+	position:     relative;
+	margin-top:   6px;
+	margin-right: 6px;
+	width:        18px;
+	height:       18px;
+	cursor:       pointer !important;
+	z-index:      100;
+	float:        right;
+}
+#additional-popup .popup-close-button span:after,
+#additional-popup .popup-close-button span:before,
+#main-popup .popup-close-button span:after,
+#main-popup .popup-close-button span:before {
+	position:         absolute;
+	content:          "";
+	width:            2px;
+	height:           18px;
+	background-color: #22539C;
+}
+#additional-popup .popup-close-button span:hover:after,
+#additional-popup .popup-close-button span:hover:before,
+#main-popup .popup-close-button span:hover:after,
+#main-popup .popup-close-button span:hover:before { background-color: #3B3C5A; }
+#additional-popup .popup-close-button span:before,
+#main-popup .popup-close-button span:before { transform: rotate(45deg); }
+#additional-popup .popup-close-button span:after,
+#main-popup .popup-close-button span:after { transform: rotate(-45deg); }
+#additional-popup .popup-content,
+#main-popup .popup-content {
+	min-height:       100px;
+	background-color: #FFFFFF;
+}
+#additional-popup .popup-title,
+#main-popup .popup-title {
+	position:     absolute;
+	margin-top:   -34px;
+	font-style:   normal;
+	font-weight:  normal;
+	line-height:  35px;
+	color:        #000;
+	text-align:   left;
+	padding-left: 20px;
+}
+#additional-popup .popup-wrapper .popup-panel,
+#main-popup .popup-wrapper .popup-panel {
+	width:            100%;
+	min-height:       100px;
+	margin:           8px auto 22px;
+	padding:          2px 20px 15px;
+	box-sizing:       border-box;
+	text-align:       left;
+	background-color: #2d3748;
+}
+#additional-popup .popup-wrapper .popup-panel .panel-row,
+#main-popup .popup-wrapper .popup-panel .panel-row {}
+#additional-popup .popup-wrapper .popup-panel .panel-row.popup-text,
+#main-popup .popup-wrapper .popup-panel .panel-row.popup-text { height: auto; }
+#additional-popup .popup-wrapper .popup-panel .panel-row.popup-text,
+#main-popup .popup-wrapper .popup-panel .panel-row.popup-text {
+	font-weight: normal;
+	line-height: 23px;
+	color:       #000000;
+}
+.hidden { display: none; }

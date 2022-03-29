@@ -3,7 +3,7 @@
 @section('body')
 	<body>
 		<div id="wrapper">
-
+			@include('elements.popup')
 			<div id="action-column">
 				<div class="main-title">
 					Інформаціна<br>Система
@@ -58,5 +58,7 @@
 				</div>
 			</div>
 		</div>
+		@include('_common.console_scripts')
+		@include('_common.scripts')
 	</body>
 @endsection
