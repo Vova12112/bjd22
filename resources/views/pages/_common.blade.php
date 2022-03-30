@@ -11,7 +11,10 @@
 					Інформаціна<br>Система
 				</div>
 				<div class="action d-panel menu buttons">
-
+					<button class="menu-buttons">+</button>
+					<button class="menu-buttons">-</button>
+					<button class="menu-buttons">_</button>
+					<button class="menu-buttons">=</button>
 				</div>
 				<div class="action d-panel menu nav">
 					<div class="nav-group">
