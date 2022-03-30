@@ -50,7 +50,7 @@
 				'value' => '',
 				'classes' => '',
 				'isReadOnly' => FALSE,
-				'isDisable' => FALSE
+				'isDisable' => TRUE
 
 
 			]

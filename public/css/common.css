@@ -201,9 +201,8 @@
 	line-height: 23px;
 	color:       #000000;
 }
-
-.name{
-	width: 100%;
+.name {
+	width:         100%;
 	height:        26px;
 	background:    #FFFFFF;
 	padding:       0 10px;
@@ -211,15 +210,15 @@
 	box-sizing:    border-box;
 	border-radius: 5px;
 	outline:       none;
-	margin-left: 20px;
+	margin-left:   20px;
 }
-.orgName{
-	display: flex;
-	align-items: center;
+.orgName {
+	display:        flex;
+	align-items:    center;
 	padding-bottom: 20px;
 }
 .name2 {
-	width: 100%;
+	width:         100%;
 	height:        52px;
 	background:    #FFFFFF;
 	padding:       0 10px;
@@ -227,10 +226,57 @@
 	box-sizing:    border-box;
 	border-radius: 5px;
 	outline:       none;
-	margin-left: 20px;
+	margin-left:   20px;
 }
-
-#orgbtn{
-	text-align: center;
+#orgbtn {
+	text-align:  center;
 	padding-top: 25px;
 }
+.container {
+	width:           100%;
+	display:         flex;
+	flex-direction:  row;
+	justify-content: space-around;
+}
+.containerCards {
+	height:        300px;
+	width:         250px;
+	position:      relative;
+	background:    #D3E5F3;
+	border:        1px solid #333333;
+	box-sizing:    border-box;
+	border-radius: 10px;
+	text-align:    center;
+}
+.containerCards .card-header {
+	color:          #333333;
+	font-style:     normal;
+	font-weight:    500;
+	font-size:      24px;
+	line-height:    29px;
+	text-align:     center;
+	text-transform: uppercase;
+}
+.containerCards .card-line {
+	width:  220px;
+	border: 1px solid #BED4E8;
+}
+.containerCards .card-description {
+	color:         #444444;
+	font-style:    normal;
+	font-weight:   500;
+	font-size:     16px;
+	line-height:   20px;
+	text-align:    left;
+	padding-left:  15px;
+	padding-right: 15px;
+}
+.containerCards .card-btn {
+	position:  absolute;
+	bottom:    25px;
+	left:      50%;
+	transform: translateX(-50%);
+}
+
+
+

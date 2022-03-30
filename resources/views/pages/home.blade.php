@@ -1,6 +1,6 @@
 @extends('pages._common')
 @section('title')
-	Заголовок
+	Головна сторінка
 @endsection
 
 @section('content')
@@ -60,4 +60,3 @@
 		});
 	</script>
 @endsection
-
