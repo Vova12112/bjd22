@@ -19,7 +19,7 @@ Route::group(['prefix' => '/paginator'], static function() {
 
 Route::get('/test_datapicker', 'TestController@datapicker');
 Route::get('/create','WordController@create');
-Route::post('/store','WordController@store');
+Route::post('/store','TemplateController@saveWord');
 Route::post('/add-in','WordController@writeInDocOpen');
 Route::get('/file-chose', function () {
 	return view('docpicker');
