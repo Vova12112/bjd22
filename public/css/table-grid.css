@@ -1,0 +1,138 @@
+.js-table-grid {
+	line-height: 32px;
+}
+.js-search-container,
+div.pager {
+	z-index:  500;
+	position: relative;
+	display:  inline-block;
+}
+.js-search-container input[name=search] {
+	width:       300px;
+	margin-top:  5px;
+	margin-left: 25px;
+}
+div.pager {
+	width:         220px;
+	text-align:    right;
+	margin-top:    14px;
+	margin-bottom: 6px;
+	float:         right;
+}
+div.pager > div { }
+div.pager span { vertical-align: top; }
+div.pager span i {
+	margin-top: 5px;
+	position:   relative;
+}
+div.filters {
+	background:                 #FFFFFF;
+	z-index:                    200;
+	border:                     1px solid #2374a1;
+	border-bottom-left-radius:  5px;
+	border-bottom-right-radius: 5px;
+}
+.table-grid table {
+	border-collapse: collapse;
+	position:        relative;
+	table-layout:    fixed;
+}
+.table-grid table thead th {
+	background:    #efeeee;
+	white-space:   nowrap;
+	text-overflow: ellipsis;
+	overflow:      hidden;
+	padding:       8px 24px 8px 12px;
+	position:      relative;
+	border-left:   2px inset transparent;
+	border-right:  2px inset transparent;
+}
+.table-grid table thead th.header-sortable { cursor: pointer; }
+.table-grid table thead th.header-sortable:before,
+.table-grid table thead th.header-sortable:after {
+	content:      "";
+	border-style: solid;
+	position:     absolute;
+	right:        14px;
+}
+.table-grid table thead th.header-sortable:before {
+	border-width: 0 5px 5px;
+	border-color: transparent transparent;
+	top:          16px;
+}
+.table-grid table thead th.header-sortable:after {
+	border-width: 5px 5px 0;
+	border-color: #727273 transparent transparent;
+	top:          26px;
+}
+.table-grid table thead th.header-sort:after {
+	content:      " ";
+	display:      block;
+	float:        left;
+	width:        0;
+	height:       0;
+	border-style: solid;
+	position:     absolute !important;
+	right:        14px !important;
+}
+.table-grid table thead th.header-sort-asc:after,
+.table-grid table thead th.header-sort-asc:hover::after {
+	border-width: 0 5px 5px !important;
+	border-color: transparent transparent #2374a1 !important;
+	top:          16px !important;
+}
+.table-grid table thead th.header-sort-desc:after,
+.table-grid table thead th.header-sort-desc:hover::after {
+	border-width: 5px 5px 0 !important;
+	border-color: #2374a1 transparent transparent !important;
+	top:          26px !important;
+}
+.table-grid table thead th.header-sort:before,
+.table-grid table thead th.header-sort:hover:before { display: none !important; }
+.table-grid table thead th.header-cell:not(.header-sortable):before { display: none !important; }
+.table-grid table thead th.header-cell:not(.header-sortable):after { display: none !important; }
+.table-grid table thead th.header-sort { color: #2374a1; }
+.table-grid table thead th:hover {
+	border-left:  2px solid #2374a1;
+	border-right: 2px solid #2374a1;
+}
+.table-grid table tbody td {
+	white-space:   nowrap;
+	text-overflow: ellipsis;
+	overflow:      hidden;
+	padding:       8px 12px;
+	border:        none;
+	border-bottom: 1px solid #efeeee;
+	box-sizing:    border-box;
+	cursor:        pointer;
+}
+.table-grid table tbody tr.selected-row { border-left: 1px solid #2374a1; }
+.table-grid table tbody tr.selected-row td { background: #f5fcff; }
+.align-left {text-align: left; }
+.align-right { text-align: right; }
+.align-center { text-align: center; }
+i.paginator {
+	background-image:      url('../img/paginator.svg') !important;
+	color:                 #727273;
+	width:                 16px;
+	height:                16px;
+	background-position-y: -32px;
+	display:               inline-block;
+	cursor:                pointer;
+}
+i.paginator:hover {
+	background-position-y: 0;
+	color:                 #2374a1;
+}
+.pager-nav-inactive-button i.paginator {
+	color:                 #B9B9B9 !important;
+	background-position-y: -16px;
+	cursor:                default;
+}
+i.paginator.first { background-position-x: 0; }
+i.paginator.prev { background-position-x: -16px; }
+i.paginator.next { background-position-x: -32px; }
+i.paginator.refresh { background-position-x: -48px; }
+i.paginator.reset { background-position-x: -64px; }
+i.paginator.filter { background-position-x: -80px; }
+i.paginator.zoom { background-position-x: -96px; }

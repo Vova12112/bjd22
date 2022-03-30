@@ -19,16 +19,23 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property Carbon|NULL instructed_at
  * @property string|NULL description
  * @package App\Models
+ * @method static where(string $string, string $string1, int $id)
  */
 class Worker extends AModel
 {
 	/*** @var string[] */
-	protected $dates = ['birth_at', 'body_check_at', 'instructed_at', 'created_at', 'updated_at', 'deleted_at'];
+	protected $dates = ['birth_at', 'body_check_at', 'instructed_at', 'created_at', 'updated_at'];
 
 	/*** @return BelongsTo */
 	public function structureSegment(): BelongsTo
 	{
 		return $this->belongsTo(StructureSegment::class);
+	}
+
+	/*** @return string */
+	public function getFullName(): ?string
+	{
+		return sprintf('%s %s %s', $this->last_name, $this->first_name, $this->sub_name);
 	}
 
 	/*** @return BelongsTo */

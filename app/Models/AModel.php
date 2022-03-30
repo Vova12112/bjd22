@@ -17,7 +17,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 abstract class AModel extends Model
 {
 
-	use SoftDeletes;
 
 	/*** @var string[] */
 	protected $dates = ['created_at', 'updated_at', 'deleted_at'];

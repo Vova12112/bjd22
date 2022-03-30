@@ -99,11 +99,11 @@ body {
 	width:          calc(100% - 320px);
 	vertical-align: top;
 }
-#content-column .content.panel {
+#content-column .content.d-panel {
 	width:      100%;
 	min-height: 800px;
 }
-#content-column .content.panel .content-header {
+#content-column .content.d-panel .content-header {
 	position:     relative;
 	width:        100%;
 	height:       90px;
@@ -116,7 +116,7 @@ body {
 	box-sizing:   border-box;
 	color:        #333333;
 }
-#content-column .content.panel .content-header:before {
+#content-column .content.d-panel .content-header:before {
 	content:          " ";
 	position:         absolute;
 	bottom:           0;
@@ -125,7 +125,7 @@ body {
 	height:           1px;
 	background-color: #BED4E8;
 }
-#content-column .content.panel .content-wrapper {
+#content-column .content.d-panel .content-wrapper {
 	width:      100%;
 	height:     calc(100% - 100px);
 	margin-top: 5px;

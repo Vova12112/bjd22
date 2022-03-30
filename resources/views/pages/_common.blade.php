@@ -3,15 +3,17 @@
 @section('body')
 	<body>
 		<div id="wrapper">
+			@csrf
+			<div id="loader" style="display: none;"><img src="{{ asset('img/load.gif') }}" alt="loader"></div>
 			@include('elements.popup')
 			<div id="action-column">
 				<div class="main-title">
 					Інформаціна<br>Система
 				</div>
-				<div class="action panel menu buttons">
+				<div class="action d-panel menu buttons">
 
 				</div>
-				<div class="action panel menu nav">
+				<div class="action d-panel menu nav">
 					<div class="nav-group">
 						<div class="nav category">
 							<span>Працівники</span>
@@ -48,7 +50,7 @@
 				</div>
 			</div>
 			<div id="content-column">
-				<div class="content panel">
+				<div class="content d-panel">
 					<div class="content-header">
 						@yield('title')
 					</div>

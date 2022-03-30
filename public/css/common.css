@@ -1,7 +1,11 @@
+.hidden {
+	display: none;
+}
 .input-block {
 	position: relative;
 	height:   32px;
 }
+.js-grid-container input[type=text],
 .input-block input.default {
 	position:      absolute;
 	top:           3px;
@@ -15,6 +19,7 @@
 	border-radius: 5px;
 	outline:       none;
 }
+.js-grid-container input[type=text]:focus,
 .input-block input.default:focus {
 	border: 1px solid #2374A1;
 }
@@ -52,15 +57,15 @@
 	-moz-transition:    ease-in-out 0.2s;
 	-o-transition:      ease-in-out 0.2s;
 }
-.panel {
+.d-panel {
 	box-shadow:    inset 4px 4px 10px rgba(0, 0, 0, 0.25);
 	border-radius: 10px;
 	box-sizing:    border-box;
 }
-.panel.action {
+.d-panel.action {
 	background: #FCFEFF;
 }
-.panel.content {
+.d-panel.content {
 	background: #F8FCFF;
 }
 .btn {
@@ -77,8 +82,27 @@
 	color:  #22539C;
 	border: 1px solid #2374A1;
 }
-
-
+#loader {
+	display:          none;
+	background-color: rgba(152, 188, 229, 0.84);
+	z-index:          999;
+	width:            100%;
+	height:           100vh;
+	position:         absolute;
+	top:              0;
+	left:             0;
+	opacity:          0.8;
+}
+#loader img {
+	width:       70px;
+	height:      70px;
+	position:    absolute;
+	bottom:      50%;
+	margin-top:  -35px;
+	left:        50%;
+	margin-left: -35px;
+	z-index:     2000;
+}
 /**------------------ MAIN & ADDITIONAL POPUPS --------------------**/
 #additional-popup,
 #main-popup {

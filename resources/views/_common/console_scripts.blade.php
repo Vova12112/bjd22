@@ -245,6 +245,8 @@
 						notification.show(response.message, "message-type" in response ? response.message - type : 'success');
 					}
 					location.reload();
+				} else if (response.ack === 'redirect') {
+					window.location.href = response.url
 				} else if (response.ack === 'fail') {
 					if ("message" in response) {
 						loader.stop();
@@ -261,17 +263,7 @@
 				}
 			},
 			error   : function (xhr, textStatus, thrownError) {
-				@if ( ! App::isProduction())
-
-				console.log(xhr);
-				console.log(textStatus);
-				console.log(thrownError);
-
-				@else
-
 				location.reload();
-
-				@endif
 			}
 		});
 	}
