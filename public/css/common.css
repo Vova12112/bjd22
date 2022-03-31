@@ -305,11 +305,16 @@
 .btn.workers.card{
 	
 	position: relative ;
-	
 	left:      50%;
 	transform: translateX(-50%);
 }
 
+.btn.structure.segments.details{
+	top: 30px;
+	position: relative ;
+	left:      50%;
+	transform: translateX(-50%);
+}
 
 
 
