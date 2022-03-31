@@ -83,6 +83,7 @@
 	border: 1px solid #2374A1;
 }
 /**------------------   BUTTON PANEL --------------------**/
+
 .menu-buttons{
 	width: 48px;
 	height: 48px;
@@ -300,6 +301,17 @@
 	left:      50%;
 	transform: translateX(-50%);
 }
+
+.btn.workers.card{
+	
+	position: relative ;
+	
+	left:      50%;
+	transform: translateX(-50%);
+}
+
+
+
 
 
 

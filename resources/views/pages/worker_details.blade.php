@@ -8,6 +8,7 @@
 @endsection
 
 @section('content')
-
+	@include(
+	'elements.ownworkerscard'
+	)
 @endsection
-
