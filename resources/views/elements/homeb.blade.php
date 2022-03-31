@@ -6,5 +6,5 @@
 	<p class="card-description">
 		{!! $description !!}
 	</p>
-	<button class="btn card-btn">{{ $textbtn }}</button>
+	<button class="btn card-btn {{ $btnClass ?? '' }}" {!! $btnAttr ?? '' !!}>{{ $textbtn }}</button>
 </div>

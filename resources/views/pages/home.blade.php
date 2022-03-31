@@ -9,14 +9,18 @@
 		'elements.homeb', [
 			'title' => 'ПРАЦІВНИКИ',
 			'description' => 'Перелік працівників, додавання, редагування, звільнення.<br><br>Перелік посад та управління ними.',
-			'textbtn' => 'Перейти'
+			'textbtn' => 'Перейти',
+			'btnClass' => 'nav-link',
+			'btnAttr' => 'data-route="'. route('workers') . '"',
 			]
 		)
 		@include(
 		'elements.homeb', [
 			'title' => 'ПІДПРИЄМСТВО',
 			'description' => 'Перелік підприємств, додавання, редагування, видалення.<br><br>Перелік посад та управління ними.',
-			'textbtn' => 'Перейти'
+			'textbtn' => 'Перейти',
+			'btnClass' => 'nav-link',
+			'btnAttr' => 'data-route="'. route('organization') . '"',
 			]
 		)
 		@include(
@@ -27,5 +31,7 @@
 			]
 		)
 
+
 	</div>
+
 @endsection

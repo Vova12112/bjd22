@@ -2,13 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => '/organization'], static function() {
-	Route::get('/', 'OrganizationController@organization');
+	Route::get('/', 'OrganizationController@organization')->name('organization');
 });
 Route::group(['prefix' => '/workers'], static function() {
-	Route::get('/', 'WorkerController@workers');
+	Route::get('/', 'WorkerController@workers')->name('workers');
 	Route::post('/details/worker/redirect', 'WorkerController@redirect')->name('worker.details.redirect');
 	Route::get('/details/{id}', 'WorkerController@workerDetails')->name('worker.details');
 });

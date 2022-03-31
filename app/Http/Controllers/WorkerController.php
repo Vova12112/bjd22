@@ -20,7 +20,20 @@ class WorkerController extends Controller
 	 */
 	public function workers()
 	{
-		return view('pages.workers', ['search' => '']);
+		$buttons = [
+			[
+				'label' => '+',
+				'class' => 'js-create',
+				'alt' => 'Новий працівник'
+			],
+			[
+				'label' => '<',
+				'class' => 'js-back nav-link',
+				'alt' => 'Повернутись назад',
+				'args' => 'data-route="' . route('home') . '"',
+			],
+		];
+		return view('pages.workers', ['search' => '', 'buttons' => $buttons]);
 	}
 
 	public function redirect(Request $request)
@@ -35,7 +48,25 @@ class WorkerController extends Controller
 	{
 		$workerController = new WorkersModelController(new WorkersModelRepo());
 		$worker = $workerController->findById((int)$id);
-		return view('pages.worker_details', compact('worker'));
+		$buttons = [
+			[
+				'label' => '+',
+				'class' => 'js-create',
+				'alt' => 'Новий працівник'
+			],
+			[
+				'label' => 'х',
+				'class' => 'js-delete',
+				'alt' => 'Звільнити працівника'
+			],
+			[
+				'label' => '<',
+				'class' => 'js-back nav-link',
+				'alt' => 'Повернутись назад',
+				'args' => 'data-route="' . route('workers') . '"',
+			],
+		];
+		return view('pages.worker_details', compact('worker', 'buttons'));
 	}
 
 }
