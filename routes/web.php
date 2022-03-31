@@ -6,6 +6,9 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => '/organization'], static function() {
 	Route::get('/', 'OrganizationController@organization')->name('organization');
+	Route::get('/segments', 'OrganizationController@organizationStructure')->name('organization.segments');
+	Route::post('/segments/worker/redirect', 'OrganizationController@redirect')->name('segment.details.redirect');
+	Route::get('/details/{id}', 'OrganizationController@segmentDetails')->name('segment.details');
 });
 Route::group(['prefix' => '/workers'], static function() {
 	Route::get('/', 'WorkerController@workers')->name('workers');
@@ -15,6 +18,7 @@ Route::group(['prefix' => '/workers'], static function() {
 
 Route::group(['prefix' => '/paginator'], static function() {
 	Route::post('/workers', 'PaginatorController@workers')->name('paginator.workers');
+	Route::post('/segments', 'PaginatorController@segments')->name('paginator.segments');
 });
 
 Route::get('/test_datapicker', 'TestController@datapicker');

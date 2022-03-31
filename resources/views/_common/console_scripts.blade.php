@@ -263,7 +263,7 @@
 				}
 			},
 			error   : function (xhr, textStatus, thrownError) {
-				location.reload();
+				//location.reload();
 			}
 		});
 	}

@@ -38,7 +38,7 @@
 						<div class="nav subcategory nav-link" data-route="{{ route('organization') }}">
 							Деталі
 						</div>
-						<div class="nav subcategory nav-link" data-route="">
+						<div class="nav subcategory nav-link" data-route="{{ route('organization.segments') }}">
 							Відділи
 						</div>
 					</div>

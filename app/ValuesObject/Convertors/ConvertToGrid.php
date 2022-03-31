@@ -36,6 +36,25 @@ class ConvertToGrid
 	}
 
 	/**
+	 * @param LengthAwarePaginator $segments
+	 * @return array
+	 */
+	public static function segments(LengthAwarePaginator $segments): array
+	{
+		$data = self::getGeneralData($segments);
+		try {
+			foreach ($segments->items() as $key => $item) {
+				$data['data'][$key] = [
+					'id'                 => $item->id,
+					'name'         => htmlspecialchars($item->name),
+				];
+			}
+		} catch (Exception $e) {
+		}
+		return $data;
+	}
+
+	/**
 	 * @param LengthAwarePaginator $data
 	 * @return array
 	 */
