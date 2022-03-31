@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string name
  * @property int    profession_category_id
  * @package App\Models
+ * @method static where(string $string, string $string1, int $id)
  */
 class Profession extends AModel
 {

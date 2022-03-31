@@ -6,6 +6,7 @@ namespace App\Models;
  * Class ProfessionCategory
  * @property string name
  * @package App\Models
+ * @method static where(string $string, string $string1, $id)
  */
 class ProfessionCategory extends AModel
 {

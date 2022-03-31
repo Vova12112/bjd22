@@ -2,7 +2,7 @@
 	<div class="popup-wrapper">
 		<div class="popup-close-button"><span></span></div>
 		<div class="popup-title"></div>
-		<div class="popup-content"></div>
+		<div class="popup-content d-panel"></div>
 	</div>
 </div>
 <div id="additional-popup">

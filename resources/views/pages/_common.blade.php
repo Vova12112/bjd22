@@ -2,10 +2,10 @@
 
 @section('body')
 	<body>
+		@include('elements.popup')
 		<div id="wrapper">
 			@csrf
 			<div id="loader" style="display: none;"><img src="{{ asset('img/load.gif') }}" alt="loader"></div>
-			@include('elements.popup')
 			<div id="action-column">
 				<div class="main-title nav-link" style="cursor: pointer;" data-route="{{ route('home') }}">
 					Інформаціна<br>Система
@@ -26,7 +26,7 @@
 						<div class="nav subcategory nav-link" data-route="{{ route('workers') }}">
 							Всі працівники
 						</div>
-						<div class="nav subcategory nav-link" data-route="">
+						<div class="nav subcategory nav-link" data-route="{{ route('professions') }}">
 							Посади
 						</div>
 					</div>

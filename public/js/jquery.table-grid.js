@@ -61,6 +61,9 @@
 		rowClickEntityId: null,
 
 		rowClick: function (args) {
+			if (this.rowClickUrl === 'function'){
+				return this.rowClickFunction(args);
+			}
 			if (this.rowClickUrl !== null && this.rowClickEntityId !== null) {
 				let data = {};
 				data[this.rowClickEntityId] = $("<div>").append(args.item.id).text().trim();

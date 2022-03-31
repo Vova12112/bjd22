@@ -37,7 +37,7 @@
 					rowClickEntityId: "segment_id"
 				}
 			);
-			$segmentsGrid.jTable('sort', {field: "{{ $sortField ?? 'last_name' }}", order: "{{ $sortOrder ?? 'asc' }}"});
+			$segmentsGrid.jTable('sort', {field: "{{ $sortField ?? 'name' }}", order: "{{ $sortOrder ?? 'asc' }}"});
 		});
 
 	</script>
