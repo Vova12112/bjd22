@@ -316,7 +316,10 @@
 	transform: translateX(-50%);
 }
 
-
+textarea{
+	min-height: 200px;
+	min-width: 100%;
+}
 
 
 

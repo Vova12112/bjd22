@@ -81,13 +81,13 @@ class Worker extends AModel
 	}
 
 	/*** @return int */
-	public function getSex(): int
+	public function getSex(): ?int
 	{
 		return $this->sex;
 	}
 
 	/*** @param int $sex */
-	public function setSex(int $sex): void
+	public function setSex(?int $sex): void
 	{
 		$this->sex = $sex;
 	}
@@ -99,7 +99,7 @@ class Worker extends AModel
 	}
 
 	/*** @param bool $married */
-	public function setMarried(bool $married): void
+	public function setMarried(?bool $married = FALSE): void
 	{
 		$this->married = $married;
 	}
@@ -151,5 +151,34 @@ class Worker extends AModel
 	{
 		$this->description = $description;
 	}
+
+	/*** @return int */
+	public function getStructureSegmentId(): ?int
+	{
+		return $this->structure_segment_id;
+	}
+
+	/***
+	 * @param int|null $structure_segment_id
+	 */
+	public function setStructureSegmentId(?int $structure_segment_id): void
+	{
+		$this->structure_segment_id = $structure_segment_id;
+	}
+
+	/*** @return int */
+	public function getProfessionId(): ?int
+	{
+		return $this->profession_id;
+	}
+
+	/***
+	 * @param int|null $profession_id
+	 */
+	public function setProfessionId(?int $profession_id): void
+	{
+		$this->profession_id = $profession_id;
+	}
+
 
 }

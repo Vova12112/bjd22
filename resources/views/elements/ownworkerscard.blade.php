@@ -1,8 +1,6 @@
 <div class="own-workers-card-container">
 	<h3>Особиста карточка робітника</h3>
-
 	<div class="own-workers-card-lastname">
-		<p>Прізвище:</p>
 		@include(
 			'elements.input',
 			[
@@ -17,7 +15,6 @@
 		)
 	</div>
 	<div class="own-workers-card-firstname">
-		<p>Ім'я:</p>
 		@include(
 			'elements.input',
 			[
@@ -32,7 +29,6 @@
 		)
 	</div>
 	<div class="own-workers-card-surname">
-		<p>По батькові:</p>
 		@include(
 			'elements.input',
 			[
@@ -42,7 +38,7 @@
 				'classes' => '',
 				'isReadOnly' => FALSE,
 				'isDisable' => FALSE,
-				'name' => 'surname'
+				'name' => 'sub-name'
 			]
 		)
 	</div>
@@ -67,8 +63,8 @@
 			  'label' => '&nbsp;',
 			  'labelClass' => '',
 			  'isWithChoose' => TRUE,
-			  'name' => 'family',
-			  'options' => ["1"=>"одружений","2"=>"не одружений","3" => "розлучений"],
+			  'name' => 'married',
+			  'options' => ["1"=>"одружений/на","2"=>"не одружений/на","3" => "розлучений/на"],
 			]
 		)
 	</div>
@@ -81,7 +77,7 @@
 				'selectedDay' => '',
 				'minDay' => '',
 				'maxDay' => \Carbon\Carbon::now('UTC')->format('d.m.Y'),
-				'name' => 'date-bd'
+				'name' => 'birth-at'
 			]
 		)
 		<p>Структурні підрозділи організації:</p>
@@ -89,7 +85,7 @@
 			'elements.select',
 			[
 				'id' => 'workers-details-organization-divisions',
-				'name' => 'organization-divisions',
+				'name' => 'structure-segment-id',
 				'options'=>["1"=>"одружений","2"=>"не одружений","3" => "розлучений"]
 			]
 		)
@@ -111,7 +107,7 @@
 				'selectedDay' => '',
 				'minDay' => '',
 				'maxDay' => \Carbon\Carbon::now('UTC')->format('d.m.Y'),
-				'name' => 'date-instruction'
+				'name' => 'instructed-at'
 			]
 		)
 
@@ -125,9 +121,8 @@
 				'label' => 'Категорія',
 				'value' => '',
 				'classes' => '',
-				'isReadOnly' => TRUE,
 				'isDisable' => FALSE,
-				'name' => 'category'
+				'name' => 'structure-segment-id'
 			]
 		)
 		<div>
@@ -139,29 +134,24 @@
 					'label' => 'Професія(посада)',
 					'value' => '',
 					'classes' => '',
-					'isReadOnly' => TRUE,
 					'isDisable' => FALSE,
-					'name' => 'position'
+					'name' => 'profession-id'
 				]
 			)
 
 		</div>
-
-		<p>Додаткова інформація:</p>
 		@include(
-			'elements.input',
+			'elements.textarea',
 			[
 				'inputId' => 'workers-details-add-information',
 				'label' => 'Додаткова інформація',
-				'value' => '',
 				'classes' => '',
-				'isReadOnly' => TRUE,
 				'isDisable' => FALSE,
-				'name' => 'add-information'
+				'name' => 'description',
+				'placeholder'=>''
 			]
 		)
-		<button class="btn workers card">Довідник</button>
-
+{{--		<button class="btn workers card">Довідник</button>--}}
 	</div>
 
 </div>
