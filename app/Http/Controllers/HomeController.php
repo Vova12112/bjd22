@@ -19,4 +19,8 @@ class HomeController extends Controller
 	{
 		return view('pages.home');
 	}
+
+	public function unexpectedError(){
+		return view('pages.errors.unexpected');
+	}
 }

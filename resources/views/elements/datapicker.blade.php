@@ -1,5 +1,5 @@
 <div class="input-block">
-	<input type="text" id="{{ $datapickerId }}" value="{{ $selectedDay ?? '' }}" class="default">
+	<input type="text" id="{{ $datapickerId }}" value="{{ $selectedDay ?? '' }}" data-old="{{$old}}" class="default">
 	<script>
 		$(document).ready(function () {
 			const $dataPicker = $("#{{ $datapickerId }}"),

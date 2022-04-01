@@ -19,6 +19,7 @@
 			const
 				$form = $(document).find("form"),
 				$button = $form.find("button");
+
 			$button.on("click", function () {
 				$form.submit();
 			});

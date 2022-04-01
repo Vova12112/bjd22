@@ -13,6 +13,7 @@ Route::group(['prefix' => '/organization'], static function() {
 Route::group(['prefix' => '/workers'], static function() {
 	Route::get('/', 'WorkerController@workers')->name('workers');
 	Route::get('/create', 'Action\WorkerActionController@get')->name('worker.create.page');
+	Route::get('/delete/id', 'Action\WorkerActionController@deleteWorker')->name('worker.delete.page');
 	Route::post('/save', 'Action\WorkerActionController@addNewWorker')->name('worker.save.page');
 	Route::post('/details/worker/redirect', 'WorkerController@redirect')->name('worker.details.redirect');
 	Route::get('/details/{id}', 'WorkerController@workerDetails')->name('worker.details');
@@ -29,4 +30,8 @@ Route::post('/store','TemplateController@saveWord');
 Route::post('/add-in','WordController@writeInDocOpen');
 Route::get('/file-chose', function () {
 	return view('docpicker');
+});
+
+Route::group(['prefix' => '/error'], static function() {
+	Route::get('/unexpected', 'HomeController@unexpectedError')->name('error.unexpected');
 });

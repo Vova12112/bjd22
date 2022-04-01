@@ -54,13 +54,14 @@ class WorkerController extends Controller
 		$buttons = [
 			[
 				'label' => '+',
-				'class' => 'js-create',
-				'alt' => 'Новий працівник'
+				'class' => 'js-create nav-link',
+				'alt' => 'Новий працівник',
+				'args' => 'data-route="' . route('worker.create.page') . '"'
 			],
 			[
 				'label' => 'х',
-				'class' => 'js-delete',
-				'alt' => 'Звільнити працівника'
+				'class' => 'js-delete nav-link',
+				'args' => 'data-route="' . route('worker.delete.page') . '"'
 			],
 			[
 				'label' => '<',

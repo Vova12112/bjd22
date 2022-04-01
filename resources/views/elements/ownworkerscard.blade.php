@@ -1,4 +1,10 @@
+<?php
+/*** @var \App\Models\Worker $worker */
+?>
+
+
 <div class="own-workers-card-container">
+	<input type="hidden" name="id" value="{{isset($worker)?$worker->getId():'-1'}}">
 	<h3>Особиста карточка робітника</h3>
 	<div class="own-workers-card-lastname">
 		@include(
@@ -6,7 +12,8 @@
 			[
 				'inputId' => 'workers-details-last-name',
 				'label' => 'Прізвище',
-				'value' => '',
+				'value' => isset($worker)?$worker->getLastName():'',
+				'old'=>isset($worker)??$worker->getLastName(),
 				'classes' => '',
 				'isReadOnly' => FALSE,
 				'isDisable' => FALSE,
@@ -20,7 +27,8 @@
 			[
 				'inputId' => 'workers-details-first-name',
 				'label' => 'Ім я',
-				'value' => '',
+				'value' => isset($worker)?$worker->getFirstName():'',
+				'old'=>isset($worker)??$worker->getFirstName(),
 				'classes' => '',
 				'isReadOnly' => FALSE,
 				'isDisable' => FALSE,
@@ -34,7 +42,8 @@
 			[
 				'inputId' => 'workers-details-surname',
 				'label' => 'По батькові',
-				'value' => '',
+				'value' => isset($worker)?$worker->getSubName():'',
+				'old'=>isset($worker)??$worker->getSubName(),
 				'classes' => '',
 				'isReadOnly' => FALSE,
 				'isDisable' => FALSE,
@@ -43,28 +52,31 @@
 		)
 	</div>
 	<div class="own-workers-card-sex">
-		<p>Стать:</p>
 		@include(
 			'elements.select',
 			[
 			  'id' => 'workers-details-sex',
-			  'label' => '&nbsp;',
+			  'label' => 'Стать',
+			  'value' => isset($worker)?$worker->getSex():'',
+			  'selected' => isset($worker)&&$worker->getSex()?'1':'2',
+			  'old'=>isset($worker)??$worker->getSex(),
 			  'labelClass' => '',
 			  'isWithChoose' => TRUE,
 			  'name' => 'sex',
-			  'options' => ["1"=>"чоловік","2"=>"жінка"],
+			  'options' => [1=>"чоловік",2=>"жінка"],
 			]
 		)
-		<p>Сімейний стан:</p>
 		@include(
 			'elements.select',
 			[
 			  'id' => 'workers-details-family',
-			  'label' => '&nbsp;',
+			  'label' => 'Сімейний стан',
+			  'value' => isset($worker)?$worker->isMarried():'',
+			  'old'=>isset($worker)??$worker->isMarried(),
 			  'labelClass' => '',
 			  'isWithChoose' => TRUE,
 			  'name' => 'married',
-			  'options' => ["1"=>"одружений/на","2"=>"не одружений/на","3" => "розлучений/на"],
+			  'options' => [1=>"одружений/на",2=>"не одружений/на",3 => "розлучений/на"],
 			]
 		)
 	</div>
@@ -74,7 +86,8 @@
 			'elements.datapicker',
 			[
 				'datapickerId' => 'datapicker-bd',
-				'selectedDay' => '',
+				'selectedDay' => isset($worker)&&$worker->getBodyCheckAt() !== NULL?(string)$worker->getBodyCheckAt()->format('d.m.Y'):'',
+			    'old'=>isset($worker)??(string)$worker->getBirthAt(),
 				'minDay' => '',
 				'maxDay' => \Carbon\Carbon::now('UTC')->format('d.m.Y'),
 				'name' => 'birth-at'
@@ -86,7 +99,9 @@
 			[
 				'id' => 'workers-details-organization-divisions',
 				'name' => 'structure-segment-id',
-				'options'=>["1"=>"одружений","2"=>"не одружений","3" => "розлучений"]
+				'value' => isset($worker)?$worker->getStructureSegmentId():'',
+			    'old'=>isset($worker)??$worker->getStructureSegmentId(),
+				'options'=>[1=>"одружений/на",2=>"не одружений/на",3 => "розлучений/на"],
 			]
 		)
 		<p>Дата попереднього медогляду:</p>
@@ -94,7 +109,8 @@
 			'elements.datapicker',
 			[
 				'datapickerId' => 'datapicker-medical',
-				'selectedDay' => '',
+				'selectedDay' => isset($worker)&&$worker->getBodyCheckAt() !== NULL?(string)$worker->getBodyCheckAt()->format('d.m.Y'):'',
+			    'old'=>isset($worker)??(string)$worker->getBodyCheckAt(),
 				'minDay' => '',
 				'maxDay' => \Carbon\Carbon::now('UTC')->format('d.m.Y'),
 				'name' => 'date-medical'
@@ -104,7 +120,8 @@
 			'elements.datapicker',
 			[
 				'datapickerId' => 'datapicker-instruction',
-				'selectedDay' => '',
+				'selectedDay' => isset($worker)&&$worker->getInstructedAt() !== NULL?(string)$worker->getInstructedAt()->format('d.m.Y'):'',
+			    'old'=>isset($worker)??(string)$worker->getInstructedAt(),
 				'minDay' => '',
 				'maxDay' => \Carbon\Carbon::now('UTC')->format('d.m.Y'),
 				'name' => 'instructed-at'
@@ -113,45 +130,43 @@
 
 	</div>
 	<div class="own-workers-card-category">
-		<p>Категорія:</p>
 		@include(
-			'elements.input',
+			'elements.select',
 			[
-				'inputId' => 'workers-details-category',
 				'label' => 'Категорія',
-				'value' => '',
-				'classes' => '',
-				'isDisable' => FALSE,
-				'name' => 'structure-segment-id'
+				'id' => 'workers-details-category',
+				'name' => 'structure-segment-id',
+				'value' => isset($worker)?$worker->getStructureSegmentId():'',
+			    'old'=>isset($worker)??$worker->getStructureSegmentId(),
+				'options'=>[1=>"одружений/на",2=>"не одружений/на",3 => "розлучений/на"],
 			]
 		)
 		<div>
-			<p>Професія(посада):</p>
 			@include(
-				'elements.input',
-				[
-					'inputId' => 'workers-details-position',
-					'label' => 'Професія(посада)',
-					'value' => '',
-					'classes' => '',
-					'isDisable' => FALSE,
-					'name' => 'profession-id'
-				]
-			)
-
+			'elements.select',
+			[
+				'label' => 'Професія(посада)',
+				'id' => 'workers-details-position',
+				'name' => 'profession-id',
+				'value' => isset($worker)?$worker->getProfessionId():'',
+			    'old'=>isset($worker)??$worker->getProfessionId(),
+				'options'=>[1=>"одружений/на",2=>"не одружений/на",3 => "розлучений/на"],
+			]
+		)
 		</div>
 		@include(
 			'elements.textarea',
 			[
 				'inputId' => 'workers-details-add-information',
 				'label' => 'Додаткова інформація',
+				'value' => isset($worker)?$worker->getDescription():'',
+			    'old'=>isset($worker)??$worker->getDescription(),
 				'classes' => '',
 				'isDisable' => FALSE,
 				'name' => 'description',
 				'placeholder'=>''
 			]
 		)
-{{--		<button class="btn workers card">Довідник</button>--}}
 	</div>
 
 </div>
