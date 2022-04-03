@@ -50,7 +50,7 @@
 						<div class="nav subcategory nav-link" data-route="">
 							Лог інцидентів
 						</div>
-						<div class="nav subcategory nav-link" data-route="">
+						<div class="nav subcategory nav-link" data-route="{{ route('accidents.show') }}">
 							Види інцидентів
 						</div>
 					</div>

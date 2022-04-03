@@ -87,6 +87,21 @@ class ConvertToGrid
 		}
 		return $data;
 	}
+	public static function accidents(LengthAwarePaginator $accidents): array
+	{
+		$data = self::getGeneralData($accidents);
+		try {
+			foreach ($accidents->items() as $key => $item) {
+				$data['data'][$key] = [
+					'id'                 => $item->id,
+					'name'         => htmlspecialchars($item->name),
+				];
+			}
+		} catch (Exception $e) {
+		}
+		return $data;
+	}
+
 
 	/**
 	 * @param LengthAwarePaginator $data

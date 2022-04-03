@@ -34,8 +34,14 @@ Route::group(['prefix' => '/workers'], static function() {
 Route::group(['prefix' => '/paginator'], static function() {
 	Route::post('/workers', 'PaginatorController@workers')->name('paginator.workers');
 	Route::post('/segments', 'PaginatorController@segments')->name('paginator.segments');
+	Route::post('/accidents', 'PaginatorController@accidents')->name('paginator.accidents');
 	Route::post('/professions', 'PaginatorController@professions')->name('paginator.professions');
 	Route::post('/categories', 'PaginatorController@categories')->name('paginator.categories');
+});
+
+Route::group(['prefix' => '/accidents'], static function() {
+	Route::get('/show', 'AccidentController@show')->name('accidents.show');
+
 });
 
 Route::get('/test_datapicker', 'TestController@datapicker');
