@@ -1,6 +1,6 @@
-<div class="input-block">
+<div class="input-block {{ $classes ?? '' }}">
 	<input type="text"
-			class="default {{ $classes }}"
+			class="default"
 			placeholder=" "
 			{{isset($isRequired) && $isRequired}}
 			value="{{ $value ?? '' }}"

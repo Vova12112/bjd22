@@ -14,6 +14,6 @@ class Professions
 	/*** @return array */
 	public static function getCategories(): array
 	{
-		return  DB::table('professions')->pluck('name','id')->toArray();;
+		return  DB::table('professions')->whereNull('deleted_at')->pluck('name','id')->toArray();;
 	}
 }

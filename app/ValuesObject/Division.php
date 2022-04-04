@@ -14,6 +14,6 @@ class Division
 	/*** @return array */
 	public static function getDivisions(): array
 	{
-		return  DB::table('structure_segments')->pluck('name','id')->toArray();;
+		return  DB::table('structure_segments')->whereNull('deleted_at')->pluck('name','id')->toArray();;
 	}
 }

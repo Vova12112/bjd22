@@ -72,10 +72,10 @@
 	background: #F8FCFF;
 }
 .btn {
-	width:         100px;
 	height:        26px;
 	background:    #FFFFFF;
 	border:        1px solid #555555;
+	padding: 2px 20px;
 	box-sizing:    border-box;
 	border-radius: 5px;
 }

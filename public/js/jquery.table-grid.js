@@ -61,7 +61,7 @@
 		rowClickEntityId: null,
 
 		rowClick: function (args) {
-			if (this.rowClickUrl === 'function'){
+			if (this.rowClickUrl === 'function') {
 				return this.rowClickFunction(args);
 			}
 			if (this.rowClickUrl !== null && this.rowClickEntityId !== null) {
@@ -157,6 +157,7 @@
 		},
 
 		_initLoadDataController: function (loadDataUrl, searchSelector) {
+			const context = this;
 			if (loadDataUrl !== null) {
 				this._controller = {
 					loadData: function (args) {
@@ -173,14 +174,10 @@
 								$filters = $search.closest(".js-search-container").find(".js-filters-section");
 
 							data.search = $search.val();
-							if ($filters !== null && $filters !== undefined) {
-								data.filters = {};
-								$filters.find("select").each(function () {
-									let value = $(this).val();
-									if (value !== "" && value !== "-" && value !== undefined && value !== null) {
-										data.filters[$(this).prop("name")] = value;
-									}
-								});
+							if (context.filters === "selector") {
+								data.filters = context.filtersSelector.data("filters");
+							} else {
+								data.filters = context.filters ?? {};
 							}
 						}
 						return ajaxRequest(loadDataUrl, "POST", "json", data);

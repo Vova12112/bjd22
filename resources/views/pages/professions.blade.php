@@ -169,9 +169,7 @@
 				$professionCategoriesBtn = $("#wrapper .js-categories")
 			;
 
-			$professionCategoriesBtn.on("click", function () {
-				noScriptPopupHandlers();
-			});
+			noScriptPopupHandlers();
 
 			$professionsGrid.jTable(
 				{

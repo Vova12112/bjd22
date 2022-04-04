@@ -4,6 +4,7 @@ namespace App\Models\Repo;
 
 use App\Models\AccidentType;
 use App\Models\Worker;
+use Carbon\Carbon;
 use DB;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Query\Builder;
@@ -70,6 +71,9 @@ class AccidentsModelRepo
 						->orWhere('t5.name', 'like', '%' . $search . '%');
 				}
 			);
+		}
+		if ( ! empty($filters)) {
+			$query = $this->checkWorkersAccidentsFilter($query, $filters);
 		}
 		$query->whereNull('t1.deleted_at');
 		$query = $this->checkWorkersAccidentsOrder($query, $sortField, $sortOrder);
@@ -155,6 +159,43 @@ class AccidentsModelRepo
 			$query->orderBy('t2.sub_name', $sortOrder);
 		} else {
 			$query->orderBy('t1.' . $sortField, $sortOrder);
+		}
+		return $query;
+	}
+
+	private function checkWorkersAccidentsFilter(Builder $query, array $filters): Builder
+	{
+		if ( ! empty($filters['from'])) {
+			$dateFrom = Carbon::parse($filters['from']);
+			$query->where('t1.accident_at', '>', $dateFrom->toDateTimeString());
+		}
+		if ( ! empty($filters['to'])) {
+			$dateTo = Carbon::parse($filters['to']);
+			$query->where('t1.accident_at', '<', $dateTo->toDateTimeString());
+		}
+		if ( ! empty($filters['first_name'])) {
+			$query->where('t2.first_name', 'like', '%' . $filters['first_name'] . '%');
+		}
+		if ( ! empty($filters['last_name'])) {
+			$query->where('t2.last_name', 'like', '%' . $filters['last_name'] . '%');
+		}
+		if ( ! empty($filters['sub_name'])) {
+			$query->where('t2.sub_name', 'like', '%' . $filters['sub_name'] . '%');
+		}
+		if ( ! empty($filters['sex'])) {
+			$query->where('t2.sex', '=', $filters['sex']);
+		}
+		if ( ! empty($filters['profession_id'])) {
+			$query->where('t2.profession_id', '=', $filters['profession_id']);
+		}
+		if ( ! empty($filters['category_id'])) {
+			$query->where('t5.profession_category_id', '=', $filters['category_id']);
+		}
+		if ( ! empty($filters['segment_id'])) {
+			$query->where('t2.structure_segment_id', '=', $filters['segment_id']);
+		}
+		if ( ! empty($filters['accidents_type_id'])) {
+			$query->where('t1.accident_type_id', '=', $filters['accidents_type_id']);
 		}
 		return $query;
 	}
