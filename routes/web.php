@@ -57,6 +57,8 @@ Route::group(['prefix' => '/paginator'], static function() {
 	Route::post('/categories', 'PaginatorController@categories')->name('paginator.categories');
 	Route::post('/workers_accidents', 'PaginatorController@workersAccidents')->name('paginator.workers-accidents');
 });
+Route::post('/template', 'WordController@renderTemplate')->name('template.render');
+
 Route::get('/test_datapicker', 'TestController@datapicker');
 Route::get('/create', 'WordController@create');
 Route::post('/store', 'TemplateController@saveWord');

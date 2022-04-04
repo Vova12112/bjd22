@@ -17,8 +17,7 @@ class TemplateWriter
 
 	private string $templateName;
 	private string $fileName;
-	private array $params;
-
+	private array  $params;
 
 	/**
 	 * @param string $fileName
@@ -27,8 +26,8 @@ class TemplateWriter
 	public function __construct(string $templateName, string $fileName, array $params)
 	{
 		$this->templateName = $templateName;
-		$this->fileName = $fileName;
-		$this->params   = $params;
+		$this->fileName     = $fileName;
+		$this->params       = $params;
 	}
 
 	/**
@@ -36,17 +35,17 @@ class TemplateWriter
 	 */
 	public function save(?string $type = '.docx'): BinaryFileResponse
 	{
-		$phpWord = new PhpWord();
-		$templateName    = $this->templateName;
-		$section = $phpWord->loadTemplate(Path::UPLOAD . $templateName . $type);
-		foreach ($this->params as $key => $param){
-			$section->setValue(sprintf('%s',$key),$param);
+		$phpWord      = new PhpWord();
+		$templateName = $this->templateName;
+		$section      = $phpWord->loadTemplate(public_path() . Path::UPLOAD . $templateName . $type);
+		foreach ($this->params as $key => $param) {
+			$section->setValue(sprintf('%s', $key), $param);
 		}
 		try {
-			$section->saveAs(PATH::UPLOAD . $this->fileName . $type);
+			$section->saveAs(public_path() . Path::UPLOAD . $this->fileName . $type);
 		} catch (Exception $e) {
 		}
-		return response() -> download(public_path(PATH::DOWNLOAD . $this->fileName . $type));
+		return response()->download(public_path() . Path::UPLOAD . $this->fileName . $type);
 	}
 
 }

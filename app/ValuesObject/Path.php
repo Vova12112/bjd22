@@ -8,6 +8,6 @@ namespace App\ValuesObject;
  */
 class Path
 {
-	public const UPLOAD = 'public/DocumentBase/';
+	public const UPLOAD = '\\DocumentBase\\';
 	public const DOWNLOAD = '\\DocumentBase\\';
 }

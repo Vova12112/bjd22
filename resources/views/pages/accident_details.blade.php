@@ -1,11 +1,14 @@
 <?php
 
 use App\Models\Controllers\AccidentsModelController;
+use App\Models\Controllers\OrganizationsModelController;
 use App\Models\Repo\AccidentsModelRepo;
+use App\Models\Repo\OrganizationsModelRepo;
 use App\Models\WorkerAccident;
 
 /*** @var WorkerAccident $accident */
-$accidentController = new AccidentsModelController(new AccidentsModelRepo())
+$accidentController     = new AccidentsModelController(new AccidentsModelRepo());
+$organizationController = new OrganizationsModelController(new OrganizationsModelRepo());
 ?>
 
 @extends('pages._common')
@@ -139,9 +142,8 @@ $accidentController = new AccidentsModelController(new AccidentsModelRepo())
 
 			@if ( isset($accident))
 				<div class="actions-group" style="display: inline-block;">
-					<button class="btn js-word-template" data-template="info-1">Повідомлення про інц.</button>
-					<button class="btn js-word-template" data-template="protokol-1">Протокол опитування</button>
-					<button class="btn js-word-template" data-template="protokol-2">Протокол огляду</button>
+					<button class="btn js-word-template" data-template="info1" data-name-pref="Povidomlennya-">Повідомлення про інц.</button>
+					<button class="btn js-word-template" data-template="protokol1" data-name-pref="Protokol-opytuvannya-">Протокол опитування</button>
 				</div>
 			@endif
 			<button class="btn js-save-category">Зберегти</button>
@@ -160,6 +162,28 @@ $accidentController = new AccidentsModelController(new AccidentsModelRepo())
 
 			$templatesBtn.on("click", function (e) {
 				e.preventDefault();
+				ajaxRequest(
+					"{{ route('template.render') }}",
+					"POST",
+					"json",
+					{
+						"template_name": $(this).data("template"),
+						"file_name"    : $(this).data("name-pref"),
+						"params"       : {
+							"organizationName"   : "{{ $organizationController->getOrganization()->getName() }}",
+							"organizationAddress": "{{ $organizationController->getOrganization()->getAddress() }}",
+							"accidentAt"         : "{{ isset($accident) ? $accident->getAccidentAt()->format('d.m.Y') : '' }}",
+							"workerFullName"     : "{{ isset($accident) ? $accident->worker->getFullName() : '' }}",
+							"workerProfession"   : "{{ isset($accident) ? $accident->worker->profession->getName() : '' }}",
+							"workerMarried"   : "{{ isset($accident) && $accident->worker->isMarried() ? 'заміжній' : 'незаміжній' }}",
+							"workerBirth"        : "{{ isset($accident) ? $accident->worker->getBirthAt() : '' }}",
+							"workerSegment"      : "{{ isset($accident) ? $accident->worker->structureSegment->getName() : '' }}",
+							"day"                : "{{ now()->day }}",
+							"monthWord"          : "{{ now()->month }}",
+							"year"               : "{{ now()->year }}",
+						}
+					}
+				)
 			});
 
 			$goToWorkerBtn.on("click", function (e) {

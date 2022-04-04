@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ValuesObject\TemplateWriter;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use PhpOffice\PhpWord\Exception\CopyFileException;
@@ -14,6 +15,25 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class WordController extends Controller
 {
+
+	public function renderTemplate(Request $request) {
+		try{
+			$fileName = $request->get('file_name') . time();
+			$writer = new TemplateWriter($request->get('template_name'), $fileName, $request->get('params'));
+			$writer->save();
+			return response()->json([
+				'ack' => 'redirect',
+				'url' => asset('\\DocumentBase\\' . $fileName . '.docx')
+			]);
+		}catch (Exception $e){
+
+		}
+	}
+
+
+
+
+
 	public function create()
 	{
 		return view('createdocument');
