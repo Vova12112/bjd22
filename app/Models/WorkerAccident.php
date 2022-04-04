@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * Class WorkerAccident
  * @property int    worker_id
  * @property int    accident_type_id
+ * @property Carbon sick_start_at
+ * @property Carbon sick_end_at
  * @property Carbon accident_at
  * @property int    hours_after_start_working
  * @package App\Models
@@ -52,6 +54,54 @@ class WorkerAccident extends AModel
 	public function setHoursAfterStartWorking(int $hours_after_start_working): void
 	{
 		$this->hours_after_start_working = $hours_after_start_working;
+	}
+
+	/*** @return int */
+	public function getWorkerId(): int
+	{
+		return $this->worker_id;
+	}
+
+	/*** @param int $worker_id */
+	public function setWorkerId(int $worker_id): void
+	{
+		$this->worker_id = $worker_id;
+	}
+
+	/*** @return int */
+	public function getAccidentTypeId(): int
+	{
+		return $this->accident_type_id;
+	}
+
+	/*** @param int $accident_type_id */
+	public function setAccidentTypeId(int $accident_type_id): void
+	{
+		$this->accident_type_id = $accident_type_id;
+	}
+
+	/*** @return Carbon */
+	public function getSickStartAt(): Carbon
+	{
+		return $this->sick_start_at;
+	}
+
+	/*** @param Carbon $sick_start_at */
+	public function setSickStartAt(Carbon $sick_start_at): void
+	{
+		$this->sick_start_at = $sick_start_at;
+	}
+
+	/*** @return Carbon */
+	public function getSickEndAt(): Carbon
+	{
+		return $this->sick_end_at;
+	}
+
+	/*** @param Carbon $sick_end_at */
+	public function setSickEndAt(Carbon $sick_end_at): void
+	{
+		$this->sick_end_at = $sick_end_at;
 	}
 
 }

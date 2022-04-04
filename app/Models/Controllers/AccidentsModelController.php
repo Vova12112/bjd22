@@ -19,7 +19,7 @@ class AccidentsModelController
 	 * UserController constructor.
 	 * @param AccidentsModelRepo $repo
 	 */
-	public function __construct( AccidentsModelRepo $repo)
+	public function __construct(AccidentsModelRepo $repo)
 	{
 		$this->repo = $repo;
 	}
@@ -34,9 +34,21 @@ class AccidentsModelController
 	 */
 	public function fetchPageAccidents(int $currentPage, int $pageSize, string $sortField, string $sortOrder, ?string $search): LengthAwarePaginator
 	{
-		return $this->repo->fetchPageAccidents($currentPage, $pageSize, $sortField, $sortOrder, $search);
+		fetchPageAccidents($currentPage, $pageSize, $sortField, $sortOrder, $search);
 	}
 
-
+	/**
+	 * @param int    $currentPage
+	 * @param int    $pageSize
+	 * @param string $sortField
+	 * @param string $sortOrder
+	 * @param string $search
+	 * @param array  $filters
+	 * @return LengthAwarePaginator
+	 */
+	public function fetchPageWorkersAccidents(int $currentPage, int $pageSize, string $sortField, string $sortOrder, string $search, array $filters): LengthAwarePaginator
+	{
+		return $this->repo->fetchPageWorkersAccidents($currentPage, $pageSize, $sortField, $sortOrder, $search, $filters);
+	}
 
 }

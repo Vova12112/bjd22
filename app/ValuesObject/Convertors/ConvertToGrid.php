@@ -2,6 +2,7 @@
 
 namespace App\ValuesObject\Convertors;
 
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -87,14 +88,15 @@ class ConvertToGrid
 		}
 		return $data;
 	}
+
 	public static function accidents(LengthAwarePaginator $accidents): array
 	{
 		$data = self::getGeneralData($accidents);
 		try {
 			foreach ($accidents->items() as $key => $item) {
 				$data['data'][$key] = [
-					'id'                 => $item->id,
-					'name'         => htmlspecialchars($item->name),
+					'id'   => $item->id,
+					'name' => htmlspecialchars($item->name),
 				];
 			}
 		} catch (Exception $e) {
@@ -102,6 +104,27 @@ class ConvertToGrid
 		return $data;
 	}
 
+	public static function workersAccident(LengthAwarePaginator $accidents)
+	{
+		$data = self::getGeneralData($accidents);
+		try {
+			foreach ($accidents->items() as $key => $item) {
+				$data['data'][$key] = [
+					'id'            => $item->id,
+					'full_name'     => sprintf(
+						'%s%s%s',
+						htmlspecialchars($item->last_name) . ' ',
+						htmlspecialchars($item->first_name) . ' ',
+						htmlspecialchars($item->sub_name) . ' ',
+					),
+					'accident_name' => htmlspecialchars($item->accident_name),
+					'accident_at'   => Carbon::parse($item->accident_at)->format('d.m.y h:i'),
+				];
+			}
+		} catch (Exception $e) {
+		}
+		return $data;
+	}
 
 	/**
 	 * @param LengthAwarePaginator $data

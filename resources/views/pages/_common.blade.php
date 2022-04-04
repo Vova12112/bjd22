@@ -47,7 +47,7 @@
 							<span> Травматизм </span>
 							<i class="icon arrow"></i>
 						</div>
-						<div class="nav subcategory nav-link" data-route="">
+						<div class="nav subcategory nav-link" data-route="{{ route('accidents.workers') }}">
 							Лог інцидентів
 						</div>
 						<div class="nav subcategory nav-link" data-route="{{ route('accidents.show') }}">

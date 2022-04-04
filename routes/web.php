@@ -35,15 +35,19 @@ Route::group(['prefix' => '/workers'], static function() {
 		});
 	});
 });
+Route::group(['prefix' => '/accidents'], static function() {
+	Route::get('/', 'AccidentController@show')->name('accidents.show');
+	Route::get('/workers', 'AccidentController@accidentWorkers')->name('accidents.workers');
+	Route::post('/details/redirect', 'AccidentController@accidentWorkers')->name('accident.details.redirect');
+	Route::get('/details', 'AccidentController@accidentWorkers')->name('accident.details');
+});
 Route::group(['prefix' => '/paginator'], static function() {
 	Route::post('/workers', 'PaginatorController@workers')->name('paginator.workers');
 	Route::post('/segments', 'PaginatorController@segments')->name('paginator.segments');
 	Route::post('/accidents', 'PaginatorController@accidents')->name('paginator.accidents');
 	Route::post('/professions', 'PaginatorController@professions')->name('paginator.professions');
 	Route::post('/categories', 'PaginatorController@categories')->name('paginator.categories');
-});
-Route::group(['prefix' => '/accidents'], static function() {
-	Route::get('/show', 'AccidentController@show')->name('accidents.show');
+	Route::post('/workers_accidents', 'PaginatorController@workersAccidents')->name('paginator.workers-accidents');
 });
 Route::get('/test_datapicker', 'TestController@datapicker');
 Route::get('/create', 'WordController@create');

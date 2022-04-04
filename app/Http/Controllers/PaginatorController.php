@@ -8,15 +8,12 @@ use App\Models\Controllers\SegmentsModelController;
 use App\Models\Controllers\WorkersModelController;
 use App\Models\Repo\ProfessionsModelRepo;
 use App\Models\Repo\AccidentsModelRepo;
-
 use App\Models\Repo\SegmentsModelRepo;
 use App\Models\Repo\WorkersModelRepo;
-
 use App\ValuesObject\Convertors\ConvertToGrid;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-
 
 /**
  * Class PaginatorController
@@ -56,13 +53,13 @@ class PaginatorController extends Controller
 	public function accidents(Request $request)
 	{
 		try {
-			$currentPage = (int) $request->get('current_page', 1);
-			$pageSize    = (int) $request->get('page_size', 10);
-			$sortField   = (string) $request->get('sort_field', 'name');
-			$sortOrder   = (string) $request->get('sort_order', 'asc');
-			$search      = (string) $request->get('search', '');
+			$currentPage         = (int) $request->get('current_page', 1);
+			$pageSize            = (int) $request->get('page_size', 10);
+			$sortField           = (string) $request->get('sort_field', 'name');
+			$sortOrder           = (string) $request->get('sort_order', 'asc');
+			$search              = (string) $request->get('search', '');
 			$accidentsController = new AccidentsModelController(new AccidentsModelRepo());
-			$accidents = $accidentsController->fetchPageAccidents($currentPage, $pageSize, $sortField, $sortOrder, $search);
+			$accidents           = $accidentsController->fetchPageAccidents($currentPage, $pageSize, $sortField, $sortOrder, $search);
 			return response()->json(ConvertToGrid::accidents($accidents));
 		} catch (Exception $e) {
 			return response()->json([
@@ -145,6 +142,34 @@ class PaginatorController extends Controller
 			$professionsController = new ProfessionsModelController(new ProfessionsModelRepo());
 			$professions           = $professionsController->fetchPageProfessionCategories($currentPage, $pageSize, $sortField, $sortOrder, $search);
 			return response()->json(ConvertToGrid::categories($professions));
+		} catch (Exception $e) {
+			return response()->json([
+				"from"  => 0,
+				"to"    => 0,
+				"total" => 0,
+				"data"  => [
+					[],
+				],
+			]);
+		}
+	}
+
+	/**
+	 * @param Request $request
+	 * @return JsonResponse
+	 */
+	public function workersAccidents(Request $request): JsonResponse
+	{
+		try {
+			$currentPage         = (int) $request->get('current_page', 1);
+			$pageSize            = (int) $request->get('page_size', 10);
+			$sortField           = (string) $request->get('sort_field', 'name');
+			$sortOrder           = (string) $request->get('sort_order', 'asc');
+			$search              = (string) $request->get('search', '');
+			$filters             = (array) $request->get('filters', []);
+			$accidentsController = new AccidentsModelController(new AccidentsModelRepo());
+			$accidents           = $accidentsController->fetchPageWorkersAccidents($currentPage, $pageSize, $sortField, $sortOrder, $search, $filters);
+			return response()->json(ConvertToGrid::workersAccident($accidents));
 		} catch (Exception $e) {
 			return response()->json([
 				"from"  => 0,
