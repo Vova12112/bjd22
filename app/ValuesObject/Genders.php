@@ -13,4 +13,14 @@ class Genders
 	public const MALE = 1;
 
 	public const FEMALE = 2;
+
+	/*** @return array */
+	public static function getSex(): array
+	{
+		return [
+			self::UNKNOWN => 'Невідомо',
+			self::MALE    => 'Чоловік',
+			self::FEMALE  => 'Жінка',
+		];
+	}
 }

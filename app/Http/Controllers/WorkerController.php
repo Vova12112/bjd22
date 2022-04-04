@@ -3,8 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Controllers\WorkersModelController;
+use App\Models\Profession;
 use App\Models\Repo\WorkersModelRepo;
 use App\Models\Worker;
+use App\ValuesObject\Categories;
+use App\ValuesObject\Division;
+use App\ValuesObject\FamilyStatus;
+use App\ValuesObject\Genders;
+use App\ValuesObject\Professions;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -51,6 +57,11 @@ class WorkerController extends Controller
 	{
 		$workerController = new WorkersModelController(new WorkersModelRepo());
 		$worker = $workerController->findById((int)$id);
+		$sexes = Genders::getSex();
+		$marryStatuses = FamilyStatus::getMarryStatus();
+		$divisions = Division::getDivisions();
+		$categories = Categories::getCategories();
+		$professions = Professions::getCategories();
 		$buttons = [
 			[
 				'label' => '+',
@@ -70,7 +81,7 @@ class WorkerController extends Controller
 				'args' => 'data-route="' . route('workers') . '"',
 			],
 		];
-		return view('pages.worker_details', compact('worker', 'buttons'));
+		return view('pages.worker_details', compact('worker', 'buttons','sexes','marryStatuses','divisions','categories','professions'));
 	}
 
 	public function workerCreate(?string $first_name, ?string $last_name, ?string $sub_name, ?int $sex, ?bool $married, ?Carbon $birth_at, ?Carbon $body_check_at, ?Carbon $instructed_at, ?string $description, ?int $profession_id, ?int $structure_segment_id)
@@ -114,5 +125,6 @@ class WorkerController extends Controller
 		$worker = $workerController->findById((int)$id);
 		$worker->setDeletedAt(now('UTC'));
 	}
+
 
 }

@@ -6,6 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\WorkerController;
 use App\Models\Controllers\WorkersModelController;
 use App\Models\Repo\WorkersModelRepo;
+use App\ValuesObject\Categories;
+use App\ValuesObject\Division;
+use App\ValuesObject\FamilyStatus;
+use App\ValuesObject\Genders;
+use App\ValuesObject\Professions;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -14,7 +19,27 @@ class WorkerActionController extends Controller
 {
 	public function get()
 	{
-		return view('pages.worker_create');
+		$buttons = [
+			[
+				'label' => '+',
+				'class' => 'js-create nav-link',
+				'alt' => 'Новий працівник',
+				'args' => 'data-route="' . route('worker.create.page') . '"'
+			],
+			[
+				'label' => '<',
+				'class' => 'js-back nav-link',
+				'alt' => 'Повернутись назад',
+				'args' => 'data-route="' . route('workers') . '"',
+			],
+		];
+		$sexes = Genders::getSex();
+		$sexes = Genders::getSex();
+		$marryStatuses = FamilyStatus::getMarryStatus();
+		$divisions = Division::getDivisions();
+		$categories = Categories::getCategories();
+		$professions = Professions::getCategories();
+		return view('pages.worker_create',compact( 'buttons','sexes','marryStatuses','divisions','categories','professions'));
 	}
 
 	public function deleteWorker(Request $request): \Illuminate\Http\RedirectResponse

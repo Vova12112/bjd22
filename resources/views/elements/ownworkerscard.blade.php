@@ -58,12 +58,12 @@
 			  'id' => 'workers-details-sex',
 			  'label' => 'Стать',
 			  'value' => isset($worker)?$worker->getSex():'',
-			  'selected' => isset($worker)&&$worker->getSex()?'1':'2',
+			  'selected' => isset($worker)&&$worker->getSex()?$worker->getSex():'0',
 			  'old'=>isset($worker)??$worker->getSex(),
 			  'labelClass' => '',
 			  'isWithChoose' => TRUE,
 			  'name' => 'sex',
-			  'options' => [1=>"чоловік",2=>"жінка"],
+			  'options' => $sexes,
 			]
 		)
 		@include(
@@ -76,7 +76,7 @@
 			  'labelClass' => '',
 			  'isWithChoose' => TRUE,
 			  'name' => 'married',
-			  'options' => [1=>"одружений/на",2=>"не одружений/на",3 => "розлучений/на"],
+			  'options' => $marryStatuses,
 			]
 		)
 	</div>
@@ -101,7 +101,7 @@
 				'name' => 'structure-segment-id',
 				'value' => isset($worker)?$worker->getStructureSegmentId():'',
 			    'old'=>isset($worker)??$worker->getStructureSegmentId(),
-				'options'=>[1=>"одружений/на",2=>"не одружений/на",3 => "розлучений/на"],
+				'options'=>$divisions,
 			]
 		)
 		<p>Дата попереднього медогляду:</p>
@@ -136,9 +136,9 @@
 				'label' => 'Категорія',
 				'id' => 'workers-details-category',
 				'name' => 'structure-segment-id',
-				'value' => isset($worker)?$worker->getStructureSegmentId():'',
+				'value' => isset($worker)?$worker->getStructureSegmentId():'0',
 			    'old'=>isset($worker)??$worker->getStructureSegmentId(),
-				'options'=>[1=>"одружений/на",2=>"не одружений/на",3 => "розлучений/на"],
+				'options'=>$categories,
 			]
 		)
 		<div>
@@ -148,9 +148,9 @@
 				'label' => 'Професія(посада)',
 				'id' => 'workers-details-position',
 				'name' => 'profession-id',
-				'value' => isset($worker)?$worker->getProfessionId():'',
+				'value' => isset($worker)?$worker->getProfessionId():'0',
 			    'old'=>isset($worker)??$worker->getProfessionId(),
-				'options'=>[1=>"одружений/на",2=>"не одружений/на",3 => "розлучений/на"],
+				'options'=>$professions,
 			]
 		)
 		</div>
