@@ -47,6 +47,14 @@ class ProfessionsModelController
 	}
 
 	/**
+	 * @return array
+	 */
+	public function getCategoriesList(): array
+	{
+		return $this->repo->getCategoriesList();
+	}
+
+	/**
 	 * @param $id
 	 * @return mixed
 	 */

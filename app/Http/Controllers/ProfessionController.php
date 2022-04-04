@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Controllers\ProfessionsModelController;
+use App\Models\Profession;
 use App\Models\ProfessionCategory;
 use App\Models\Repo\ProfessionsModelRepo;
 use Exception;
@@ -10,8 +11,13 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
+/**
+ * Class ProfessionController
+ * @package App\Http\Controllers
+ */
 class ProfessionController extends Controller
 {
 	/*** @return Application|Factory|View */
@@ -20,8 +26,9 @@ class ProfessionController extends Controller
 		$buttons = [
 			[
 				'label' => '+',
-				'class' => 'js-create',
+				'class' => 'js-create nav-link',
 				'alt'   => 'Нова посада',
+				'args'  => 'data-route="' . route('profession.details', ['id' => -1]) . '"',
 			],
 			[
 				'label' => '...',
@@ -40,6 +47,34 @@ class ProfessionController extends Controller
 	}
 
 	/**
+	 * @param int     $id
+	 * @param Request $request
+	 * @return RedirectResponse
+	 */
+	public function save(int $id, Request $request): RedirectResponse
+	{
+		try {
+			if ($id === -1) {
+				$profession = new Profession();
+			} else {
+				$professionController = new ProfessionsModelController(new ProfessionsModelRepo());
+				$profession           = $professionController->findById($id);
+			}
+			if ($request->has('name')) {
+				$profession->setName($request->get('name'));
+			}
+			if ($request->has('category_id')) {
+				$profession->setProfessionCategoryId($request->get('category_id'));
+			}
+			if ($id !== -1 || ($id === -1 && ($request->has('name') || $request->has('category_id')))) {
+				$profession->save();
+			}
+		} catch (Exception $e) {
+		}
+		return response()->redirectToRoute('professions');
+	}
+
+	/**
 	 * @param Request $request
 	 * @return JsonResponse
 	 */
@@ -51,20 +86,45 @@ class ProfessionController extends Controller
 		]);
 	}
 
-	public function professionDetails(string $id)
+	/**
+	 * @param int $id
+	 * @return JsonResponse
+	 */
+	public function delete(int $id): JsonResponse
 	{
-		$professionController = new ProfessionsModelController(new ProfessionsModelRepo());
-		$profession           = $professionController->findById((int) $id);
-		$buttons              = [
+		try {
+			if ($id !== -1) {
+				$professionController = new ProfessionsModelController(new ProfessionsModelRepo());
+				$profession           = $professionController->findById($id);
+				$profession->setDeletedAt(now('UTC'));
+				$profession->save();
+			}
+		} catch (Exception $e) {
+		}
+		return response()->json([
+			'ack' => 'redirect',
+			'url' => route('professions'),
+		]);
+	}
+
+	/**
+	 * @param int $id
+	 * @return Application|Factory|View
+	 */
+	public function professionDetails(int $id)
+	{
+		$buttons = [
 			[
 				'label' => '+',
-				'class' => 'js-create',
+				'class' => 'js-create nav-link',
 				'alt'   => 'Нова посада',
+				'args'  => 'data-route="' . route('profession.details', ['id' => -1]) . '"',
 			],
 			[
 				'label' => 'х',
-				'class' => 'js-delete',
+				'class' => 'js-delete nav-link',
 				'alt'   => 'Видалити посаду',
+				'args'  => 'data-route="' . route('profession.delete', ['id' => $id]) . '" data-method="POST"',
 			],
 			[
 				'label' => '<',
@@ -73,9 +133,21 @@ class ProfessionController extends Controller
 				'args'  => 'data-route="' . route('professions') . '"',
 			],
 		];
-		return view('pages.professions_details', compact('profession', 'buttons'));
+		$params  = [
+			'buttons' => $buttons,
+		];
+		if ($id !== -1) {
+			$professionController = new ProfessionsModelController(new ProfessionsModelRepo());
+			$profession           = $professionController->findById((int) $id);
+			$params['profession'] = $profession;
+		}
+		return view('pages.professions_details', $params);
 	}
 
+	/**
+	 * @param Request $request
+	 * @return JsonResponse
+	 */
 	public function categoryDetails(Request $request): JsonResponse
 	{
 		try {
@@ -101,6 +173,11 @@ class ProfessionController extends Controller
 		}
 	}
 
+	/**
+	 * @param int     $id
+	 * @param Request $request
+	 * @return JsonResponse
+	 */
 	public function categorySave(int $id, Request $request): JsonResponse
 	{
 		try {
@@ -124,6 +201,10 @@ class ProfessionController extends Controller
 		}
 	}
 
+	/**
+	 * @param Request $request
+	 * @return JsonResponse
+	 */
 	public function categoryDelete(Request $request): JsonResponse
 	{
 		try {

@@ -1,6 +1,6 @@
 <div class="p-rel tal">
 	<label class="{{ $labelClass ?? '' }}" for="{{ $id }}">{!! $label ?? '' !!}</label>
-	<select id="{{ $id }}" class="{{ $class ?? '' }}" name="{{ $name }}" {{ $additionalParameter ?? '' }}>
+	<select id="{{ $id }}" class="{{ $class ?? '' }}" name="{{ $name }}" data-old="{{ $old }}" {{ $additionalParameter ?? '' }}>
 		@if( $isWithChoose ?? FALSE )
 			<option value="-"> Оберіть варіант </option>
 		@endif

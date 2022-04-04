@@ -1,6 +1,6 @@
 @extends('pages._common')
 @section('title')
-	Види інцедентів
+	Види інцидентів
 @endsection
 
 @section('content')

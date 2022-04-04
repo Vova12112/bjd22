@@ -31,4 +31,17 @@ class Profession extends AModel
 		$this->name = $name;
 	}
 
+	/*** @return int */
+	public function getProfessionCategoryId(): int
+	{
+		return $this->profession_category_id;
+	}
+
+	/*** @param int $profession_category_id */
+	public function setProfessionCategoryId(int $profession_category_id): void
+	{
+		$this->profession_category_id = $profession_category_id;
+	}
+
+
 }

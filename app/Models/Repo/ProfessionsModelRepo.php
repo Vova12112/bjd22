@@ -7,6 +7,7 @@ use App\Models\ProfessionCategory;
 use DB;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Collection;
 use RuntimeException;
 
 /**
@@ -86,6 +87,15 @@ class ProfessionsModelRepo
 		$query->whereNull('t1.deleted_at');
 		$query = $this->checkProfessionsOrder($query, $sortField, $sortOrder);
 		return $query->paginate($pageSize, ['*'], 'page', $currentPage);
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getCategoriesList(): array
+	{
+		$categories = ProfessionCategory::all();
+		return $categories->pluck('name', 'id')->toArray();
 	}
 
 	/**

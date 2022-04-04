@@ -60,7 +60,20 @@
 						const $navLinks = $("#wrapper .nav-link");
 
 						$navLinks.on("click", function () {
-							window.location.href = $(this).data("route");
+							if ($(this).data('method') === 'POST') {
+								ajaxRequest(
+									$(this).data("route"),
+									"POST",
+									"json",
+									{
+										"_token": $("input[name=_token]").first().val()
+									},
+									function () {
+									}
+								)
+							} else {
+								window.location.href = $(this).data("route");
+							}
 						});
 					});
 				</script>

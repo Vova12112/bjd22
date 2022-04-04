@@ -127,7 +127,7 @@
 									searchSelector  : "#js-categories-search",
 									pageSize        : 10,
 									fields          : [
-										{name: "name", title: "Назва посади (професії)"},
+										{name: "name", title: "Назва категорії"},
 									],
 									loadDataUrl     : "{{ route('paginator.categories') }}",
 									rowClickUrl     : "function",
