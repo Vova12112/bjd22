@@ -6,6 +6,7 @@ namespace App\Models;
  * Class AccidentType
  * @property string name
  * @package App\Models
+ * @method static where(string $string, string $string1, int $id)
  */
 class AccidentType extends AModel
 {

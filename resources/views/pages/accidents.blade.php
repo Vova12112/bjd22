@@ -35,8 +35,8 @@
 						{name: "updated_at", title: "Редагували"},
 					],
 					loadDataUrl     : "{{ route('paginator.accidents') }}",
-					rowClickUrl     : "",
-					rowClickEntityId: "id"
+					rowClickUrl     : "{{ route('accidents_type.details.redirect') }}",
+					rowClickEntityId: "accident_type_id"
 				}
 			);
 			$accidentsGrid.jTable('sort', {field: "{{ $sortField ?? 'name' }}", order: "{{ $sortOrder ?? 'asc' }}"});

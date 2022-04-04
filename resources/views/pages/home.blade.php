@@ -27,7 +27,9 @@
 		'elements.homeb', [
 			'title' => 'ТРАВМАТИЗМ',
 			'description' => 'Перелік травм, додавання, редагування, видалення.<br><br>Перелік типів, видів, причин.',
-			'textbtn' => 'Перейти'
+			'textbtn' => 'Перейти',
+			'btnClass' => 'nav-link',
+			'btnAttr' => 'data-route="'. route('accidents.workers') . '"',
 			]
 		)
 

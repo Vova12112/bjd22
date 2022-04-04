@@ -2,11 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AccidentType;
+use App\Models\Controllers\AccidentsModelController;
+use App\Models\Controllers\ProfessionsModelController;
+use App\Models\Repo\AccidentsModelRepo;
+use App\Models\Repo\ProfessionsModelRepo;
+use App\Models\WorkerAccident;
+use Carbon\Carbon;
+use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class AccidentController extends Controller
 {
-
 
 	public function accidentWorkers()
 	{
@@ -14,17 +26,220 @@ class AccidentController extends Controller
 			[
 				'label' => '+',
 				'class' => 'js-create nav-link',
-				'alt' => 'Новий інцидент',
-				'args' => 'data-route=""'
+				'alt'   => 'Новий інцидент',
+				'args'  => 'data-route="' . route('accident.details', ['id' => -1]) . '"',
 			],
 			[
 				'label' => '<',
 				'class' => 'js-back nav-link',
-				'alt' => 'Повернутись назад',
-				'args' => 'data-route="' . route('home') . '"',
+				'alt'   => 'Повернутись назад',
+				'args'  => 'data-route="' . route('home') . '"',
 			],
 		];
 		return view('pages.workers_accidents', ['search' => '', 'buttons' => $buttons]);
+	}
+
+	/**
+	 * @param Request $request
+	 * @return JsonResponse
+	 */
+	public function redirect(Request $request): JsonResponse
+	{
+		return response()->json([
+			'ack' => 'redirect',
+			'url' => $request->has('accident_id') ? route('accident.details', ['id' => $request->get('accident_id')]) : '/',
+		]);
+	}
+
+	/**
+	 * @param Request $request
+	 * @return JsonResponse
+	 */
+	public function typeRedirect(Request $request): JsonResponse
+	{
+		return response()->json([
+			'ack' => 'redirect',
+			'url' => $request->has('accident_type_id') ? route('accident_type.details', ['id' => $request->get('accident_type_id')]) : '/',
+		]);
+	}
+
+	/**
+	 * @return Application|Factory|View
+	 */
+	public function details(Request $request)
+	{
+		$id      = (int) $request->get("id");
+		$buttons = [
+			[
+				'label' => '+',
+				'class' => 'js-create nav-link',
+				'alt'   => 'Новий інцидент',
+				'args'  => 'data-route="' . route('accident.details', ['id' => -1]) . '"',
+			],
+			[
+				'label' => 'х',
+				'class' => 'js-delete nav-link',
+				'alt'   => 'Видалити інцидент',
+				'args'  => 'data-route="' . route('accident.delete', ['id' => $id]) . '" data-method="POST"',
+			],
+			[
+				'label' => '<',
+				'class' => 'js-back nav-link',
+				'alt'   => 'Повернутись назад',
+				'args'  => 'data-route="' . route('accidents.workers') . '"',
+			],
+		];
+		$params  = [
+			'buttons' => $buttons,
+		];
+		if ($id !== -1) {
+			$accidentController = new AccidentsModelController(new AccidentsModelRepo());
+			$accident           = $accidentController->findById((int) $id);
+			$params['accident'] = $accident;
+		}
+		return view('pages.accident_details', $params);
+	}
+
+	/**
+	 * @return Application|Factory|View
+	 */
+	public function typeDetails(Request $request)
+	{
+		$id      = (int) $request->get("id");
+		$buttons = [
+			[
+				'label' => '+',
+				'class' => 'js-create nav-link',
+				'alt'   => 'Новий тип інцидентів',
+				'args'  => 'data-route="' . route('accident_type.details', ['id' => -1]) . '"',
+			],
+			[
+				'label' => 'х',
+				'class' => 'js-delete nav-link',
+				'alt'   => 'Видалити тип інцидентів',
+				'args'  => 'data-route="' . route('accident_type.delete', ['id' => $id]) . '" data-method="POST"',
+			],
+			[
+				'label' => '<',
+				'class' => 'js-back nav-link',
+				'alt'   => 'Повернутись назад',
+				'args'  => 'data-route="' . route('accidents.workers') . '"',
+			],
+		];
+		$params  = [
+			'buttons' => $buttons,
+		];
+		if ($id !== -1) {
+			$accidentController     = new AccidentsModelController(new AccidentsModelRepo());
+			$accidentType           = $accidentController->findTypeById((int) $id);
+			$params['accidentType'] = $accidentType;
+		}
+		return view('pages.accident_type_details', $params);
+	}
+
+	/**
+	 * @param int $id
+	 * @return JsonResponse
+	 */
+	public function typeDelete(int $id): JsonResponse
+	{
+		try {
+			if ($id !== -1) {
+				$accidentController = new AccidentsModelController(new AccidentsModelRepo());
+				$accidentType       = $accidentController->findTypeById((int) $id);
+				$accidentType->setDeletedAt(now('UTC'));
+				$accidentType->save();
+			}
+		} catch (Exception $e) {
+		}
+		return response()->json([
+			'ack' => 'redirect',
+			'url' => route('accidents.show'),
+		]);
+	}
+
+	/**
+	 * @param int     $id
+	 * @param Request $request
+	 * @return RedirectResponse
+	 */
+	public function typeSave(int $id, Request $request): RedirectResponse
+	{
+		try {
+			if ($id === -1) {
+				$accidentType = new AccidentType();
+			} else {
+				$accidentController = new AccidentsModelController(new AccidentsModelRepo());
+				$accidentType       = $accidentController->findTypeById((int) $id);
+			}
+			if ($request->has('name')) {
+				$accidentType->setName($request->get('name'));
+			}
+			if ($id !== -1 || ($id === -1 && $request->has('name'))) {
+				$accidentType->save();
+			}
+		} catch (Exception $e) {
+		}
+		return response()->redirectToRoute('accidents.show');
+	}
+
+	/**
+	 * @param int     $id
+	 * @param Request $request
+	 * @return RedirectResponse
+	 */
+	public function save(int $id, Request $request): RedirectResponse
+	{
+		try {
+			if ($id === -1) {
+				$accident = new WorkerAccident();
+			} else {
+				$accidentController = new AccidentsModelController(new AccidentsModelRepo());
+				$accident           = $accidentController->findById($id);
+			}
+			if ($request->has('worker_id')) {
+				$accident->setWorkerId($request->get('worker_id'));
+			}
+			if ($request->has('accidents_type_id')) {
+				$accident->setAccidentTypeId($request->get('accidents_type_id'));
+			}
+			if ($request->has('accident_at')) {
+				$accident->setAccidentAt(Carbon::parse($request->get('accident_at')));
+			}
+			if ($request->has('hours')) {
+				$accident->setHoursAfterStartWorking($request->get('hours'));
+			}
+			if ($request->has('sick_start_at')) {
+				$accident->setSickStartAt(Carbon::parse($request->get('sick_start_at')));
+			}
+			if ($request->has('sick_end_at')) {
+				$accident->setSickEndAt(Carbon::parse($request->get('sick_end_at')));
+			}
+			$accident->save();
+		} catch (Exception $e) {
+		}
+		return response()->redirectToRoute('accidents.workers');
+	}
+
+	/**
+	 * @param int $id
+	 * @return JsonResponse
+	 */
+	public function delete(int $id): JsonResponse
+	{
+		try {
+			if ($id !== -1) {
+				$accidentController = new AccidentsModelController(new AccidentsModelRepo());
+				$accident           = $accidentController->findById($id);
+				$accident->setDeletedAt(now('UTC'));
+				$accident->save();
+			}
+		} catch (Exception $e) {
+		}
+		return response()->json([
+			'ack' => 'redirect',
+			'url' => route('accidents.workers'),
+		]);
 	}
 
 	public function show()
@@ -33,14 +248,14 @@ class AccidentController extends Controller
 			[
 				'label' => '+',
 				'class' => 'js-create nav-link',
-				'alt' => 'Новий вид інциденту',
-				'args' => 'data-route=""'
+				'alt'   => 'Новий тип інцидентів',
+				'args'  => 'data-route="' . route('accident_type.details', ['id' => -1]) . '"',
 			],
 			[
 				'label' => '<',
 				'class' => 'js-back nav-link',
-				'alt' => 'Повернутись назад',
-				'args' => 'data-route="' . route('home') . '"',
+				'alt'   => 'Повернутись назад',
+				'args'  => 'data-route="' . route('home') . '"',
 			],
 		];
 		return view('pages.accidents', ['search' => '', 'buttons' => $buttons]);

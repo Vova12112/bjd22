@@ -36,10 +36,18 @@ Route::group(['prefix' => '/workers'], static function() {
 	});
 });
 Route::group(['prefix' => '/accidents'], static function() {
-	Route::get('/', 'AccidentController@show')->name('accidents.show');
 	Route::get('/workers', 'AccidentController@accidentWorkers')->name('accidents.workers');
-	Route::post('/details/redirect', 'AccidentController@accidentWorkers')->name('accident.details.redirect');
-	Route::get('/details', 'AccidentController@accidentWorkers')->name('accident.details');
+	Route::post('/details/redirect', 'AccidentController@redirect')->name('accident.details.redirect');
+	Route::get('/details', 'AccidentController@details')->name('accident.details');
+	Route::post('/save/{id}', 'AccidentController@save')->name('accident.save');
+	Route::post('/delete/{id}', 'AccidentController@delete')->name('accident.delete');
+	Route::group(['prefix' => '/type'], static function() {
+		Route::get('/', 'AccidentController@show')->name('accidents.show');
+		Route::post('/details/redirect', 'AccidentController@typeRedirect')->name('accidents_type.details.redirect');
+		Route::get('/details', 'AccidentController@typeDetails')->name('accident_type.details');
+		Route::post('/save/{id}', 'AccidentController@typeSave')->name('accident_type.save');
+		Route::post('/delete/{id}', 'AccidentController@typeDelete')->name('accident_type.delete');
+	});
 });
 Route::group(['prefix' => '/paginator'], static function() {
 	Route::post('/workers', 'PaginatorController@workers')->name('paginator.workers');

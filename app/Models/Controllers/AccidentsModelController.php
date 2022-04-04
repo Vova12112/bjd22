@@ -34,7 +34,7 @@ class AccidentsModelController
 	 */
 	public function fetchPageAccidents(int $currentPage, int $pageSize, string $sortField, string $sortOrder, ?string $search): LengthAwarePaginator
 	{
-		fetchPageAccidents($currentPage, $pageSize, $sortField, $sortOrder, $search);
+		return $this->repo->fetchPageAccidents($currentPage, $pageSize, $sortField, $sortOrder, $search);
 	}
 
 	/**
@@ -49,6 +49,16 @@ class AccidentsModelController
 	public function fetchPageWorkersAccidents(int $currentPage, int $pageSize, string $sortField, string $sortOrder, string $search, array $filters): LengthAwarePaginator
 	{
 		return $this->repo->fetchPageWorkersAccidents($currentPage, $pageSize, $sortField, $sortOrder, $search, $filters);
+	}
+
+	public function findById(int $id)
+	{
+		return $this->repo->findById($id);
+	}
+
+	public function findTypeById(int $id)
+	{
+		return $this->repo->findTypeById($id);
 	}
 
 }

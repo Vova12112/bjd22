@@ -4,6 +4,7 @@ namespace App\Models\Repo;
 
 use App\Models\AccidentType;
 use App\Models\Worker;
+use App\Models\WorkerAccident;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -23,7 +24,6 @@ class AccidentsModelRepo
 	 * @param string      $sortField
 	 * @param string      $sortOrder
 	 * @param string|null $search
-
 	 * @return LengthAwarePaginator
 	 */
 	public function fetchPageAccidents(int $currentPage, int $pageSize, string $sortField, string $sortOrder, ?string $search): LengthAwarePaginator
@@ -33,7 +33,7 @@ class AccidentsModelRepo
 		if ( ! empty($search)) {
 			$query->where(
 				static function(Builder $q) use ($search) {
-					$q->where('t1.name', 'like',$search);
+					$q->where('t1.name', 'like','%' . $search . '%');
 				}
 			);
 		}
@@ -78,6 +78,24 @@ class AccidentsModelRepo
 		$query->whereNull('t1.deleted_at');
 		$query = $this->checkWorkersAccidentsOrder($query, $sortField, $sortOrder);
 		return $query->paginate($pageSize, ['*'], 'page', $currentPage);
+	}
+
+	public function findById(int $id)
+	{
+		$workersAccident = WorkerAccident::where('id', '=', $id)->first();
+		if ($workersAccident === NULL) {
+			throw new RuntimeException("Інцидент не знайдено");
+		}
+		return $workersAccident;
+	}
+
+	public function findTypeById(int $id)
+	{
+		$accidentType = AccidentType::where('id', '=', $id)->first();
+		if ($accidentType === NULL) {
+			throw new RuntimeException("Тип не знайдено");
+		}
+		return $accidentType ;
 	}
 
 	/**

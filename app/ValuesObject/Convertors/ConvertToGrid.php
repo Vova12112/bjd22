@@ -97,6 +97,8 @@ class ConvertToGrid
 				$data['data'][$key] = [
 					'id'   => $item->id,
 					'name' => htmlspecialchars($item->name),
+					'created_at' => htmlspecialchars($item->created_at),
+					'updated_at' => htmlspecialchars($item->updated_at),
 				];
 			}
 		} catch (Exception $e) {

@@ -14,11 +14,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property Carbon accident_at
  * @property int    hours_after_start_working
  * @package App\Models
+ * @method static where(string $string, string $string1, int $id)
  */
 class WorkerAccident extends AModel
 {
 	/*** @var string[] */
-	protected $dates = ['accident_at', 'created_at', 'updated_at', 'deleted_at'];
+	protected $dates = ['accident_at', 'sick_end_at', 'sick_start_at', 'created_at', 'updated_at', 'deleted_at'];
 
 	/*** @return BelongsTo */
 	public function accidentType(): BelongsTo
@@ -81,25 +82,27 @@ class WorkerAccident extends AModel
 	}
 
 	/*** @return Carbon */
-	public function getSickStartAt(): Carbon
+	public function getSickStartAt(): ?Carbon
 	{
 		return $this->sick_start_at;
 	}
 
 	/*** @param Carbon $sick_start_at */
-	public function setSickStartAt(Carbon $sick_start_at): void
+	public function setSickStartAt(?Carbon $sick_start_at): void
 	{
 		$this->sick_start_at = $sick_start_at;
 	}
 
 	/*** @return Carbon */
-	public function getSickEndAt(): Carbon
+	public function getSickEndAt(): ?Carbon
 	{
 		return $this->sick_end_at;
 	}
 
-	/*** @param Carbon $sick_end_at */
-	public function setSickEndAt(Carbon $sick_end_at): void
+	/***
+	 * @param Carbon|null $sick_end_at
+	 */
+	public function setSickEndAt(?Carbon $sick_end_at): void
 	{
 		$this->sick_end_at = $sick_end_at;
 	}
