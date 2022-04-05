@@ -6,17 +6,19 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\WorkerController;
 use App\Models\Controllers\WorkersModelController;
 use App\Models\Repo\WorkersModelRepo;
+use App\Traits\ExceptionResponse;
 use App\ValuesObject\Categories;
 use App\ValuesObject\Division;
 use App\ValuesObject\FamilyStatus;
 use App\ValuesObject\Genders;
 use App\ValuesObject\Professions;
 use Exception;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class WorkerActionController extends Controller
 {
+	use ExceptionResponse;
 	public function get()
 	{
 		$buttons = [
@@ -34,7 +36,6 @@ class WorkerActionController extends Controller
 			],
 		];
 		$sexes = Genders::getSex();
-		$sexes = Genders::getSex();
 		$marryStatuses = FamilyStatus::getMarryStatus();
 		$divisions = Division::getDivisions();
 		$categories = Categories::getCategories();
@@ -42,7 +43,7 @@ class WorkerActionController extends Controller
 		return view('pages.worker_create',compact( 'buttons','sexes','marryStatuses','divisions','categories','professions'));
 	}
 
-	public function deleteWorker(Request $request): \Illuminate\Http\RedirectResponse
+	public function deleteWorker(Request $request): RedirectResponse
 	{
 		if ( $request->get('id') !== '-1'){
 			$workerModelController        = new WorkersModelController(new WorkersModelRepo());
@@ -54,7 +55,7 @@ class WorkerActionController extends Controller
 		else return response()->redirectToRoute('error.unexpected');
 	}
 
-	public function addNewWorker(Request $request): \Illuminate\Http\RedirectResponse
+	public function addNewWorker(Request $request)
 	{
 		try {
 			if ($request->get('id') === '-1') {
@@ -133,7 +134,13 @@ class WorkerActionController extends Controller
 			}
 			return response()->redirectToRoute('workers');
 		} catch (Exception $e) {
-			return response()->redirectTo('/');
+			return $this->ajaxFail(
+				$e,
+				'ОЙ - ОЙ - ОЙ',
+				sprintf(
+					'Sheeeeeeep %s', 'happens'
+				)
+			);
 		}
 	}
 

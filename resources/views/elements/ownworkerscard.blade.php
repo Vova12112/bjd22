@@ -60,8 +60,6 @@
 			  'value' => isset($worker)?$worker->getSex():'',
 			  'selected' => isset($worker)&&$worker->getSex()?$worker->getSex():'0',
 			  'old'=>isset($worker)??$worker->getSex(),
-			  'labelClass' => '',
-			  'isWithChoose' => TRUE,
 			  'name' => 'sex',
 			  'options' => $sexes,
 			]
@@ -73,8 +71,6 @@
 			  'label' => 'Сімейний стан',
 			  'value' => isset($worker)?$worker->isMarried():'',
 			  'old'=>isset($worker)??$worker->isMarried(),
-			  'labelClass' => '',
-			  'isWithChoose' => TRUE,
 			  'name' => 'married',
 			  'options' => $marryStatuses,
 			]

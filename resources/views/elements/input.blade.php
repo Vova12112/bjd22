@@ -8,6 +8,7 @@
 			{{ isset($isDisable) && $isDisable ? 'disable' : '' }}
 			name="{{ $name ?? '' }}"
 			data-old="{{ $old ?? ''  }}"
+			id="{{ $name ?? '' }}"
 	>
 	<label for="{{ $inputId }}">{{ $label ?? '' }}</label>
 </div>
