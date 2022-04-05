@@ -17,7 +17,7 @@ class AddFromToInAccidents extends Migration
 		    'worker_accidents',
 		    static function(Blueprint $table) {
 			    $table->timestamp('sick_start_at')->after('hours_after_start_working')->nullable()->default(NULL);
-			    $table->timestamp('sick_end_at')->after('sick_start')->nullable()->default(NULL);
+			    $table->timestamp('sick_end_at')->after('sick_start_at')->nullable()->default(NULL);
 		    }
 	    );
     }
