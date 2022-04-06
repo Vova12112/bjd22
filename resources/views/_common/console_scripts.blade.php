@@ -237,20 +237,34 @@
 			success : function (response) {
 				if (response.ack === 'success') {
 					if ("message" in response) {
-						notification.show(response.message, 'success');
+						showNotif(response.message);
 					}
 					successFunction(response);
 				} else if (response.ack === 'reload') {
 					if ("message" in response) {
-						notification.show(response.message, "message-type" in response ? response.message - type : 'success');
+						showNotif(response.message);
+						setTimeout(() => {
+							location.reload();
+						}, 5000);
+					} else {
+						location.reload();
 					}
-					location.reload();
 				} else if (response.ack === 'redirect') {
-					window.location.href = response.url
+					if ("message" in response) {
+						showNotif(response.message, "error");
+						setTimeout(() => {
+							window.location.href = response.url
+						}, 5000);
+					} else {
+						window.location.href = response.url
+					}
+
 				} else if (response.ack === 'fail') {
 					if ("message" in response) {
 						loader.stop();
-						notification.show(response.message, 'error');
+						if ("message" in response) {
+							showNotif(response.message, "error");
+						}
 					}
 					if ("validator" in response) {
 						$.each(response.validator, function (key, value) {

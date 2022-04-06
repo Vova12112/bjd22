@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property Carbon|NULL body_check_at
  * @property Carbon|NULL instructed_at
  * @property string|NULL description
+ * @property Carbon|NULL fired_at
  * @package App\Models
  * @method static where(string $string, string $string1, int $id)
  */
@@ -25,6 +26,18 @@ class Worker extends AModel
 {
 	/*** @var string[] */
 	protected $dates = ['birth_at', 'body_check_at', 'instructed_at', 'created_at', 'updated_at'];
+
+	/*** @return Carbon|NULL */
+	public function getFiredAt(): ?Carbon
+	{
+		return $this->fired_at;
+	}
+
+	/*** @param Carbon|NULL $fired_at */
+	public function setFiredAt(?Carbon $fired_at): void
+	{
+		$this->fired_at = $fired_at;
+	}
 
 	/*** @return BelongsTo */
 	public function structureSegment(): BelongsTo

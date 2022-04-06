@@ -6,7 +6,6 @@
 		{{isset($isRequired) && $isRequired}}
 		{{ isset($isReadOnly) && $isReadOnly ? 'readonly' : '' }}
 		{{ isset($isDisable) && $isDisable ? 'disable' : '' }}
-		name="{{ $name ?? '' }}">
-	</textarea>
+		name="{{ $name ?? '' }}">{{ $value ?? '' }}</textarea>
 	</label>
 </div>

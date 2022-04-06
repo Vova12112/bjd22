@@ -5,13 +5,13 @@
 
 <div class="own-workers-card-container">
 	<input type="hidden" name="id" value="{{isset($worker)?$worker->getId():'-1'}}">
-	<h3>Особиста карточка робітника</h3>
+	<h3>Особиста картка робітника</h3>
 	<div class="own-workers-card-lastname">
 		@include(
 			'elements.input',
 			[
 				'inputId' => 'workers-details-last-name',
-				'label' => 'Прізвище',
+				'label' => 'Прізвище *',
 				'value' => isset($worker)?$worker->getLastName():'',
 				'old'=>isset($worker)??$worker->getLastName(),
 				'classes' => '',
@@ -26,7 +26,7 @@
 			'elements.input',
 			[
 				'inputId' => 'workers-details-first-name',
-				'label' => 'Ім я',
+				'label' => 'Ім я *',
 				'value' => isset($worker)?$worker->getFirstName():'',
 				'old'=>isset($worker)??$worker->getFirstName(),
 				'classes' => '',
@@ -41,7 +41,7 @@
 			'elements.input',
 			[
 				'inputId' => 'workers-details-surname',
-				'label' => 'По батькові',
+				'label' => 'Побатькові',
 				'value' => isset($worker)?$worker->getSubName():'',
 				'old'=>isset($worker)??$worker->getSubName(),
 				'classes' => '',
@@ -70,37 +70,37 @@
 			'elements.select',
 			[
 			  'id' => 'workers-details-family',
-			  'label' => 'Сімейний стан',
-			  'value' => isset($worker)?$worker->isMarried():'',
-			  'old'=>isset($worker)??$worker->isMarried(),
+			  'label' => 'Сімейний стан *',
+			  'old'=>isset($worker) && $worker->isMarried() ? '1' : '0',
+			  'selected' => isset($worker) && $worker->isMarried() ? '1' : '0',
 			  'labelClass' => '',
-			  'isWithChoose' => TRUE,
 			  'name' => 'married',
 			  'options' => $marryStatuses,
 			]
 		)
 	</div>
 	<div class="own-workers-card-description">
-		<p>День народження:</p>
+		<p>День народження</p>
 		@include(
 			'elements.datapicker',
 			[
 				'datapickerId' => 'datapicker-bd',
-				'selectedDay' => isset($worker)&&$worker->getBodyCheckAt() !== NULL?(string)$worker->getBodyCheckAt()->format('d.m.Y'):'',
+				'selectedDay' => isset($worker)&&$worker->getBirthAt() !== NULL?(string)$worker->getBirthAt()->format('d.m.Y'):'',
 			    'old'=>isset($worker)??(string)$worker->getBirthAt(),
 				'minDay' => '',
 				'maxDay' => \Carbon\Carbon::now('UTC')->format('d.m.Y'),
 				'name' => 'birth-at'
 			]
 		)
-		<p>Структурні підрозділи організації:</p>
 		@include(
 			'elements.select',
 			[
 				'id' => 'workers-details-organization-divisions',
 				'name' => 'structure-segment-id',
-				'value' => isset($worker)?$worker->getStructureSegmentId():'',
+			    'label' => 'Структурні підрозділи організації *',
+				'selected' => isset($worker)?$worker->getStructureSegmentId():'-',
 			    'old'=>isset($worker)??$worker->getStructureSegmentId(),
+			    'isWithChoose' => TRUE,
 				'options'=>$divisions,
 			]
 		)
@@ -113,7 +113,7 @@
 			    'old'=>isset($worker)??(string)$worker->getBodyCheckAt(),
 				'minDay' => '',
 				'maxDay' => \Carbon\Carbon::now('UTC')->format('d.m.Y'),
-				'name' => 'date-medical'
+				'name' => 'body-check-at'
 			]
 		)<p>Дата ввідного інструктажу:</p>
 		@include(
@@ -130,27 +130,17 @@
 
 	</div>
 	<div class="own-workers-card-category">
-		@include(
-			'elements.select',
-			[
-				'label' => 'Категорія',
-				'id' => 'workers-details-category',
-				'name' => 'structure-segment-id',
-				'value' => isset($worker)?$worker->getStructureSegmentId():'0',
-			    'old'=>isset($worker)??$worker->getStructureSegmentId(),
-				'options'=>$categories,
-			]
-		)
 		<div>
 			@include(
 			'elements.select',
 			[
-				'label' => 'Професія(посада)',
+				'label' => 'Професія(посада) *',
 				'id' => 'workers-details-position',
 				'name' => 'profession-id',
-				'value' => isset($worker)?$worker->getProfessionId():'0',
-			    'old'=>isset($worker)??$worker->getProfessionId(),
+				'selected' => isset($worker)?$worker->getProfessionId():'-',
+			    'old'=>isset($worker)?$worker->getProfessionId():'-',
 				'options'=>$professions,
+			    'isWithChoose' => TRUE,
 			]
 		)
 		</div>

@@ -3,10 +3,7 @@
 @section('body')
 	<body>
 		<div class="notification">
-			<div class="notification-body">
-				<div class="notification-close">X</div>
-				Тест
-			</div>
+			<div class="notification-body"></div>
 		</div>
 		@include('elements.popup')
 		<div id="wrapper">
@@ -62,13 +59,34 @@
 					</div>
 				</div>
 				<script type="text/javascript">
-					function showNotif (text, cl){
+					function showNotif(text, cl) {
 						$(".notification .notification-body").addClass("active");
 						$(".notification .notification-body").addClass(cl);
-						$(".notification .notification-body").html(text);
-						setTimeout(() => {$(".notification .notification-body").removeClass("active")}, 3000);
-						setTimeout(() => {$(".notification .notification-body").removeClass(cl)}, 5000);
+						$(".notification .notification-body").html('<div class="notification-close">X</div>' + text);
+						setTimeout(() => {
+							$(".notification .notification-body").removeClass("active")
+						}, 3000);
+						setTimeout(() => {
+							$(".notification .notification-body").removeClass(cl)
+						}, 5000);
 					}
+
+					const getUrlParameter = function getUrlParameter(sParam) {
+						let sPageURL = window.location.search.substring(1),
+							sURLVariables = sPageURL.split('&'),
+							sParameterName,
+							i;
+
+						for (i = 0; i < sURLVariables.length; i++) {
+							sParameterName = sURLVariables[i].split('=');
+
+							if (sParameterName[0] === sParam) {
+								return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+							}
+						}
+						return false;
+					};
+
 					$(document).ready(function () {
 						const $navLinks = $("#wrapper .nav-link");
 
@@ -89,7 +107,11 @@
 							}
 						});
 
-						$(".notification .notification-body.active .notification-close").on("click", function (){
+						if (getUrlParameter('message')) {
+							showNotif(getUrlParameter('message'), getUrlParameter('messageType') ?? "");
+						}
+
+						$(".notification .notification-body.active .notification-close").on("click", function () {
 							$(".notification .notification-body").removeClass("active");
 						});
 					});

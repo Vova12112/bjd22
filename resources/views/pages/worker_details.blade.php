@@ -1,5 +1,5 @@
 <?php
-	/*** @var \App\Models\Worker $worker */
+/*** @var \App\Models\Worker $worker */
 ?>
 
 @extends('pages._common')
@@ -9,10 +9,10 @@
 
 @section('content')
 	<form id="main-form" method="POST" action="{{ route('worker.save.page') }}">
-		{!! csrf_field() !!}
-	@include(
-	'elements.ownworkerscard'
-	)
+		@csrf
+		@include(
+		'elements.ownworkerscard'
+		)
 		<button id="createworkerbtn" class="btn primary-btn submit js-create-button">
 			Зберегти
 		</button>
@@ -21,8 +21,14 @@
 		$(document).ready(function () {
 			'use strict';
 			const
-				$form = $(document).find("form"),
+				$form = $(document).find("#main-form"),
+				$deleteBtn = $(".js-delete-worker"),
 				$button = $form.find("button");
+
+			$deleteBtn.on("click", function () {
+				$form.prop("action", "{{ route('worker.delete.page') }}");
+				$form.submit();
+			});
 
 			$button.on("click", function () {
 				$form.submit();

@@ -68,10 +68,17 @@ class ProfessionController extends Controller
 			}
 			if ($id !== -1 || ($id === -1 && ($request->has('name') || $request->has('category_id')))) {
 				$profession->save();
+				$message     = 'Посаду успішно збережено';
+				$messageType = 'success';
+			} else {
+				$message     = 'Створення скасовано';
+				$messageType = 'error';
 			}
 		} catch (Exception $e) {
+			$message     = 'Посаду зберегти не вдалося';
+			$messageType = 'error';
 		}
-		return response()->redirectToRoute('professions');
+		return response()->redirectToRoute('professions', ['message' => $message, 'messageType' => $messageType]);
 	}
 
 	/**
@@ -99,11 +106,17 @@ class ProfessionController extends Controller
 				$profession->setDeletedAt(now('UTC'));
 				$profession->save();
 			}
+			$message     = 'Посаду успішно видалено';
+			$messageType = 'success';
 		} catch (Exception $e) {
+			$message     = 'Посаду видалити не вдалося';
+			$messageType = 'error';
 		}
 		return response()->json([
-			'ack' => 'redirect',
-			'url' => route('professions'),
+			'ack'         => 'redirect',
+			'url'         => route('professions'),
+			'message'     => $message,
+			'messageType' => $messageType,
 		]);
 	}
 
@@ -191,14 +204,18 @@ class ProfessionController extends Controller
 				$professionCategory->setName($request->get('name'));
 				$professionCategory->save();
 			}
-			return response()->json([
-				'ack' => 'reload',
-			]);
+			$message     = 'Категорію успішно збережено';
+			$messageType = 'success';
 		} catch (Exception $e) {
-			return response()->json([
-				'ack' => 'reload',
-			]);
+
+			$message     = 'Категорію зберегти не вдалося';
+			$messageType = 'error';
 		}
+		return response()->json([
+			'ack'         => 'reload',
+			'message'     => $message,
+			'messageType' => $messageType,
+		]);
 	}
 
 	/**
@@ -213,14 +230,20 @@ class ProfessionController extends Controller
 				$professionCategory   = $professionController->findCategoryById($request->get('id'));
 				$professionCategory->setDeletedAt(now('UTC'));
 				$professionCategory->save();
+				$message     = 'Категорію успішно видалено';
+				$messageType = 'success';
+			} else {
+				$message     = 'Створення скасовано';
+				$messageType = 'error';
 			}
-			return response()->json([
-				'ack' => 'reload',
-			]);
 		} catch (Exception $e) {
-			return response()->json([
-				'ack' => 'reload',
-			]);
+			$message     = 'Категорію видалити не вдалося';
+			$messageType = 'error';
 		}
+		return response()->json([
+			'ack'         => 'reload',
+			'message'     => $message,
+			'messageType' => $messageType,
+		]);
 	}
 }

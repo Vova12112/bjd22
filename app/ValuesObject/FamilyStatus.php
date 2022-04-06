@@ -17,8 +17,8 @@ class FamilyStatus
 	public static function getMarryStatus(): array
 	{
 		return [
-			self::MARRIED => 'Одружений/на',
 			self::NOT_MARRIED    => 'Неодружений/на',
+			self::MARRIED => 'Одружений/на',
 		];
 	}
 }

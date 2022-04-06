@@ -72,9 +72,10 @@
 	background: #F8FCFF;
 }
 .notification {
-	width:    100%;
-	position: absolute;
-	z-index:  1500
+	width:          100%;
+	position:       absolute;
+	z-index:        1500;
+	pointer-events: none;
 }
 .notification .notification-body {
 	position:         relative;
@@ -90,14 +91,16 @@
 	box-sizing:       border-box;
 	opacity:          0;
 	transition:       opacity 2s;
+	pointer-events:   none;
 }
 .notification .notification-body.error {
 	background-color: rgba(148, 115, 115, 0.87);
 	border:           2px solid #802b2b;
 }
 .notification .notification-body.active {
-	opacity:    1;
-	transition: opacity 1s;
+	opacity:        1;
+	transition:     opacity 1s;
+	pointer-events: all;
 }
 .notification .notification-body .notification-close {
 	display:  block;

@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Controllers\OrganizationsModelController;
-use App\Models\Controllers\ProfessionsModelController;
 use App\Models\Controllers\SegmentsModelController;
 use App\Models\Profession;
 use App\Models\Repo\OrganizationsModelRepo;
-use App\Models\Repo\ProfessionsModelRepo;
 use App\Models\Repo\SegmentsModelRepo;
 use App\Models\StructureSegment;
 use Exception;
@@ -53,10 +51,16 @@ class OrganizationController extends Controller
 				$organization->setAddress($request->get('address'));
 			}
 			$organization->save();
+			$message = 'Дані про підприємство успішно збережено';
+			$messageType = 'success';
 		} catch (Exception $e) {
+			$message = 'Дані про підприємство не збережено';
+			$messageType = 'error';
 		}
 		return response()->json([
-			'ack' => 'reload',
+			'ack'         => 'reload',
+			'message'     => $message,
+			'messageType' => $messageType,
 		]);
 	}
 
@@ -78,9 +82,13 @@ class OrganizationController extends Controller
 				$segment->setName($request->get('name'));
 				$segment->save();
 			}
+			$message = 'Відділ успішно збережено';
+			$messageType = 'success';
 		} catch (Exception $e) {
+			$message     = 'Відділ не збережено';
+			$messageType = 'error';
 		}
-		return response()->redirectToRoute('organization.segments');
+		return response()->redirectToRoute('organization.segments', ['message' => $message, 'messageType' => $messageType]);
 	}
 
 	/*** @return Application|Factory|View */
@@ -116,7 +124,7 @@ class OrganizationController extends Controller
 	}
 
 	/**
-	 * @param string $id
+	 * @param int $id
 	 * @return Application|Factory|View
 	 */
 	public function segmentDetails(int $id)
@@ -165,10 +173,16 @@ class OrganizationController extends Controller
 				$segment->setDeletedAt(now('UTC'));
 				$segment->save();
 			}
+			$message = 'Відділ успішно видалено';
+			$messageType = 'success';
 		} catch (Exception $e) {
+			$message     = 'Відділ видалити не вдалося';
+			$messageType = 'error';
 		}
 		return response()->json([
 			'ack' => 'redirect',
+			'message' => $message,
+			'messageType' => $messageType,
 			'url' => route('organization.segments'),
 		]);
 	}

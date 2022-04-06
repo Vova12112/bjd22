@@ -150,11 +150,17 @@ class AccidentController extends Controller
 				$accidentType->setDeletedAt(now('UTC'));
 				$accidentType->save();
 			}
+			$message     = 'Тип Інциденту було видалено';
+			$messageType = 'success';
 		} catch (Exception $e) {
+			$message     = 'Помилка. Видалення невдале';
+			$messageType = 'error';
 		}
 		return response()->json([
-			'ack' => 'redirect',
-			'url' => route('accidents.show'),
+			'ack'         => 'redirect',
+			'message'     => $message,
+			'messageType' => $messageType,
+			'url'         => route('accidents.show'),
 		]);
 	}
 
@@ -168,9 +174,11 @@ class AccidentController extends Controller
 		try {
 			if ($id === -1) {
 				$accidentType = new AccidentType();
+				$message      = 'Тип Інциденту успішно створено';
 			} else {
 				$accidentController = new AccidentsModelController(new AccidentsModelRepo());
 				$accidentType       = $accidentController->findTypeById((int) $id);
+				$message            = 'Тип Інциденту успішно оновлено';
 			}
 			if ($request->has('name')) {
 				$accidentType->setName($request->get('name'));
@@ -178,9 +186,12 @@ class AccidentController extends Controller
 			if ($id !== -1 || ($id === -1 && $request->has('name'))) {
 				$accidentType->save();
 			}
+			$messageType = 'success';
 		} catch (Exception $e) {
+			$message     = 'Тип Інциденту зберегти не вдалося';
+			$messageType = 'error';
 		}
-		return response()->redirectToRoute('accidents.show');
+		return response()->redirectToRoute('accidents.show', ['message' => $message, 'messageType' => $messageType]);
 	}
 
 	/**
@@ -193,9 +204,11 @@ class AccidentController extends Controller
 		try {
 			if ($id === -1) {
 				$accident = new WorkerAccident();
+				$message  = 'Картку інциденту успішно створено';
 			} else {
 				$accidentController = new AccidentsModelController(new AccidentsModelRepo());
 				$accident           = $accidentController->findById($id);
+				$message            = 'Картку інциденту успішно оновлено';
 			}
 			if ($request->has('worker_id')) {
 				$accident->setWorkerId($request->get('worker_id'));
@@ -216,9 +229,12 @@ class AccidentController extends Controller
 				$accident->setSickEndAt(Carbon::parse($request->get('sick_end_at')));
 			}
 			$accident->save();
+			$messageType = 'success';
 		} catch (Exception $e) {
+			$message     = 'Інцидент зберегти не вдалося';
+			$messageType = 'error';
 		}
-		return response()->redirectToRoute('accidents.workers');
+		return response()->redirectToRoute('accidents.workers', ['message' => $message, 'messageType' => $messageType]);
 	}
 
 	/**
@@ -233,12 +249,21 @@ class AccidentController extends Controller
 				$accident           = $accidentController->findById($id);
 				$accident->setDeletedAt(now('UTC'));
 				$accident->save();
+				$message     = 'Картку інциденту успішно видалено';
+				$messageType = 'success';
+			} else {
+				$message     = 'Створення скасовано';
+				$messageType = 'error';
 			}
 		} catch (Exception $e) {
+			$message     = 'Картку інциденту видалити не вдалося';
+			$messageType = 'error';
 		}
 		return response()->json([
-			'ack' => 'redirect',
-			'url' => route('accidents.workers'),
+			'ack'         => 'redirect',
+			'message'     => $message,
+			'messageType' => $messageType,
+			'url'         => route('accidents.workers'),
 		]);
 	}
 
