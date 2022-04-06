@@ -11,6 +11,7 @@ use App\ValuesObject\Division;
 use App\ValuesObject\FamilyStatus;
 use App\ValuesObject\Genders;
 use App\ValuesObject\Professions;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -64,10 +65,10 @@ class WorkerActionController extends Controller
 					$request->get('last-name'),
 					$request->get('sub-name'),
 					$request->get('sex'),
-					$request->get('married'),
-					$request->get('birth-at'),
-					$request->get('body-check-at'),
-					$request->get('instructed-at'),
+					$request->get('married') === 1,
+					Carbon::parse($request->get('birth-at')),
+					Carbon::parse($request->get('body-check-at')),
+					Carbon::parse($request->get('instructed-at')),
 					$request->get('description'),
 					$request->get('profession-id'),
 					$request->get('structure-segment-id')

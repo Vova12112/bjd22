@@ -2,6 +2,7 @@
 
 namespace App\ValuesObject\Convertors;
 
+use App\Models\WorkerAccident;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -108,7 +109,14 @@ class ConvertToGrid
 
 	public static function workersAccident(LengthAwarePaginator $accidents)
 	{
-		$data = self::getGeneralData($accidents);
+		$total = $accidents->total();
+		$totalG = WorkerAccident::all()->count();
+		$data = [
+			'from'  => $accidents->firstItem(),
+			'to'    => $accidents->lastItem(),
+			'total' => $accidents->total() . ' (' . round((int)$total * 100 / (int)$totalG, 2) . '%)',
+			'data'  => [],
+		];
 		try {
 			foreach ($accidents->items() as $key => $item) {
 				$data['data'][$key] = [

@@ -2,6 +2,12 @@
 
 @section('body')
 	<body>
+		<div class="notification">
+			<div class="notification-body">
+				<div class="notification-close">X</div>
+				Тест
+			</div>
+		</div>
 		@include('elements.popup')
 		<div id="wrapper">
 			@csrf
@@ -56,6 +62,13 @@
 					</div>
 				</div>
 				<script type="text/javascript">
+					function showNotif (text, cl){
+						$(".notification .notification-body").addClass("active");
+						$(".notification .notification-body").addClass(cl);
+						$(".notification .notification-body").html(text);
+						setTimeout(() => {$(".notification .notification-body").removeClass("active")}, 3000);
+						setTimeout(() => {$(".notification .notification-body").removeClass(cl)}, 5000);
+					}
 					$(document).ready(function () {
 						const $navLinks = $("#wrapper .nav-link");
 
@@ -74,6 +87,10 @@
 							} else {
 								window.location.href = $(this).data("route");
 							}
+						});
+
+						$(".notification .notification-body.active .notification-close").on("click", function (){
+							$(".notification .notification-body").removeClass("active");
 						});
 					});
 				</script>

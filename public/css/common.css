@@ -2,9 +2,9 @@
 	display: none;
 }
 .input-block {
-	position: relative;
-	height:   32px;
-	margin-top: 5px;
+	position:      relative;
+	height:        32px;
+	margin-top:    5px;
 	margin-bottom: 8px;
 }
 .js-grid-container input[type=text],
@@ -71,11 +71,49 @@
 .d-panel.content {
 	background: #F8FCFF;
 }
+.notification {
+	width:    100%;
+	position: absolute;
+	z-index:  1500
+}
+.notification .notification-body {
+	position:         relative;
+	color:            white;
+	margin:           15px auto;
+	min-height:       50px;
+	width:            75%;
+	background-color: rgba(115, 148, 121, 0.87);
+	border:           2px solid #285e30;
+	border-radius:    10px;
+	text-align:       center;
+	padding:          20px 45px;
+	box-sizing:       border-box;
+	opacity:          0;
+	transition:       opacity 2s;
+}
+.notification .notification-body.error {
+	background-color: rgba(148, 115, 115, 0.87);
+	border:           2px solid #802b2b;
+}
+.notification .notification-body.active {
+	opacity:    1;
+	transition: opacity 1s;
+}
+.notification .notification-body .notification-close {
+	display:  block;
+	position: absolute;
+	right:    10px;
+	top:      5px;
+}
+.notification .notification-body .notification-close:hover {
+	cursor: pointer;
+	color:  #285e30;
+}
 .btn {
 	height:        26px;
 	background:    #FFFFFF;
 	border:        1px solid #555555;
-	padding: 2px 20px;
+	padding:       2px 20px;
 	box-sizing:    border-box;
 	border-radius: 5px;
 }
@@ -331,17 +369,15 @@ textarea {
 	min-height: 200px;
 	min-width:  100%;
 }
-
 p {
-	margin-top: 5px;
+	margin-top:    5px;
 	margin-bottom: 5px;
-	padding: 0;
+	padding:       0;
 }
-
-span.select2.select2-container.select2-container--default{
-	margin-top: 5px;
+span.select2.select2-container.select2-container--default {
+	margin-top:    5px;
 	margin-bottom: 5px;
 }
-.mt-5{
+.mt-5 {
 	margin-top: 5px;
 }
